@@ -1,49 +1,114 @@
+####################
+#    Imports       #
+####################
+
 import datetime
 import os
+import mx.DateTime
+
+
+######################
+# Utility functions  #
+######################
+
 
 def setPythonPath():
+    
     new_path = "/home/src/components:/home/src/custom/ajb/osos/middleTier:/home/src/custom/ajb/osos/config:/home/src/custom/ajb/osos/middleTier/osos:/home/src/custom/ajb/osos/middleTier/domains:/home/src/custom/ajb/osos/selfService/src:/home/src/custom/ajb/osos/admin/src:/home/src/custom/ajb/osos/reports:/home/src/components/restful/src:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages"
     if new_path not in os.environ.get(['PYTHONPATH'], '').split(os.pathsep):
         os.environ["PYTHONPATH"] = new_path + os.pathsep + os.environ.get('PYTHONPATH','')
 
+
+########################
+#      functions       #
+########################
+
+
 def now():
     '''
-    the two different dateTimes 
+    the now function of datetime vs mx.DateTime
     '''
     datetimeNow = datetime.datetime.now()
-    print "Python3 implementation of datetime now() : " + str(datetimeNow)
-    print "Python3 year : " + str(datetimeNow.year)
-    print "Python3 strftime : " + str(datetimeNow.strftime("%I%M%p"))
+    print "datetime implementation of datetime now() : " + str(datetimeNow)
+
+    # TODO comment the following out and return the datetimeNow
+    print "mx.DateTime implementation of datetime now() : " + str(mx.DateTime.now())
+    return datetimeNow
 
 
 
-    import mx.DateTime 
-    print "Python2 implementation of datetime now() : " + str(mx.DateTime.now())
-    print "Python2 implementation of datetime with format : " + str(mx.DateTime.now().Format('%m/%d/%Y'))
-
-    print "Python2 format " + mx.DateTime.now().Format('%m/%d/%Y %H:%M:%S')
-
-    print "Python2 format days " + (mx.DateTime.now() + mx.DateTime.RelativeDateTime(days=+365)).strftime("%m%d%Y") 
-
-    print "Python2 format year" + (mx.DateTime.now() + mx.DateTime.RelativeDateTime(years=14)).strftime("%m%d%Y") 
-
-    print "Python2 format now stftime : " + mx.DateTime.now().strftime("%I%M%p")
-
-    print "Python2 object creation DateTiem : " + str(mx.DateTime.DateTime(2023, 6, 9))
-
-
-    #print "Python2 object creation Date : " + mx.DateTime.Date(2023, 6, 9)
-
-def today():
+def today(): 
+    '''
+    the today function of datetime vs mx.DateTime
+    '''
+    datetimeToday =datetime.date.today()
+    # the .today() gives non-zero Time stamp in datetime, hence creating an object this way 
+    dateToday= datetime.datetime(datetimeToday.year,datetimeToday.month,datetimeToday.day)    
+    print "The datetime implementation is: " + str(dateToday)
     
-    '''
-    the two different dateTimes
-    '''
-    datetimeToday = datetime.datetime.today()
-    print "Python3 implementation of datetime today : " + str(datetimeToday)
+    # TODO comment the following and reurn dateToday
+    print "mx.DateTime  implementation of datetime today : " + str(mx.DateTime.today())
+    return dateToday
 
 
-    import mx.DateTime
-    print "Python2  implementation of datetime today : " + str(mx.DateTime.today())
+
+#####################
+#    Constructors   #
+#####################
+
+class DateTime:
+    '''
+    '''
+    def __init__ (self, year, month, day, hour=0, minute=0, second=0, microsecond=0 ):
+        '''
+        Constructor of DateTIme using datetime
+        '''
+        self.datetime = datetime.datetime(year, month, day, hour, minute, second, microsecond)
+
+    def __str__ (self):
+        #print "Values : " + str(self.day) + "/" + str(self.month) + "/" + str(self.year) + " | " + str(self.hour) + ":" + str(self.minute) + ":" + str(self.second) 
+        return self.datetime.strftime("%Y-%m-%m %H:%M:%S")
+    
+
+    def strftime (self, format_string):         
+        return self.datetime.strftime(format_string)
+
+
+
+def Date( year, month, day):
+    
+    date = DateTime(year, month, day)
+    print "mx.DateTime implementation of Date : " + date.__str__()
+    print "datetime implementation is Date : " + str(datetime.datetime(year,month,day))
+
+
+
+def ParseDateTime():
+    '''
+    the ParseDateTime function of mx.DateTime
+    '''
+    # TODO complete this
+    print "parse date time... "
+
+
+#######################
+#   String <-> Time   #
+#######################
+
+def strptime(datetime_string, format_string):
+     return datetime.datetime.strptime(datetime_string, format_string)
+
+
+
+def RelativeDateTime(years=0, months=0, weeks=0, days=0, hours=0, minutes=0, seconds=0):   
+    '''
+    years=0,months=0,days=0, year=0,month=0,day=0, hours=0,minutes=0,seconds=0, hour=None,minute=None,second=None, weekday=None,weeks=0
+    '''    
+
+    from dateutil.relativedelta import relativedelta
+
+    print "mx.DateTime implementation of RelativeDateTime :  " + (str( mx.DateTime.now() + mx.DateTime.RelativeDateTime(years=years, months=months, weeks=weeks, days=days, hours=hours, minutes=minutes, seconds=seconds)))
+    print "dateutil implementation of RelativeDateTime : " + (str(datetime.datetime.now() +  relativedelta(years=years, months=months, weeks=weeks, days=days,  hours=hours, minutes=minutes, seconds=seconds)
+))
 
 
