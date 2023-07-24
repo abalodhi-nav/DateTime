@@ -28,7 +28,9 @@ def now():
     '''
     the now function of datetime vs mx.DateTime
     '''
-    datetimeNow = datetime.datetime.now()
+    
+    datetimeNow = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-4]
+    datetimeNow = datetime.datetime.strptime(datetimeNow, '%Y-%m-%d %H:%M:%S.%f')
     print "datetime implementation of datetime now() : " + str(datetimeNow)
 
     # TODO comment the following out and return the datetimeNow
