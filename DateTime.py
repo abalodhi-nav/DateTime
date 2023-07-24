@@ -69,7 +69,7 @@ class DateTime:
 
     def __str__ (self):
         #print "Values : " + str(self.day) + "/" + str(self.month) + "/" + str(self.year) + " | " + str(self.hour) + ":" + str(self.minute) + ":" + str(self.second) 
-        return self.datetime.strftime("%Y-%m-%m %H:%M:%S")
+        return self.datetime.strftime("%Y-%m-%d %H:%M:%S")
     
 
     def strftime (self, format_string):         
