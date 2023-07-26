@@ -85,20 +85,29 @@ def Date( year, month, day):
 
 
 
-def ParseDateTime():
+def ParseDateTime(date_str):
     '''
     the ParseDateTime function of mx.DateTime
-    '''
-    # TODO complete this
-    print "parse date time... "
+    NOTE : THis is used in files : 
+    aosos\custom\ajb\osos\server_agent\Resume.py
+    aosos\custom\ajb\osos\server_agent\Job.py
 
+    TODO : Verify if these files are still in use
+    '''
+    from datetime import datetime
+    dt =  datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+
+    print 'datetime implementation of ParseDateTime = ' + str(dt)
+
+    return dt
 
 #######################
 #   String <-> Time   #
 #######################
 
 def strptime(datetime_string, format_string):
-     return datetime.datetime.strptime(datetime_string, format_string)
+    from datetime import datetime
+    return datetime.strptime(datetime_string, format_string)
 
 
 
@@ -109,8 +118,16 @@ def RelativeDateTime(years=0, months=0, weeks=0, days=0, hours=0, minutes=0, sec
 
     from dateutil.relativedelta import relativedelta
 
-    print "mx.DateTime implementation of RelativeDateTime :  " + (str( mx.DateTime.now() + mx.DateTime.RelativeDateTime(years=years, months=months, weeks=weeks, days=days, hours=hours, minutes=minutes, seconds=seconds)))
-    print "dateutil implementation of RelativeDateTime : " + (str(datetime.datetime.now() +  relativedelta(years=years, months=months, weeks=weeks, days=days,  hours=hours, minutes=minutes, seconds=seconds)
-))
+    var = mx.DateTime.now() + mx.DateTime.RelativeDateTime(years=years, months=months, weeks=weeks, days=days, hours=hours, minutes=minutes, seconds=seconds)
+    delta = relativedelta(years=years, months=months, weeks=weeks, days=days,  hours=hours, minutes=minutes, seconds=seconds, microseconds=0)
+    var2 = datetime.datetime.now() + delta
 
+
+    var_str = var.strftime("%Y-%m-%d %H:%M:%S")
+    var2_str = var2.strftime("%Y-%m-%d %H:%M:%S")
+
+    print("mx.DateTime implementation of RelativeDateTime :  " + var_str)
+    print("dateutil implementation of RelativeDateTime : " + var2_str)
+
+    return  delta
 
