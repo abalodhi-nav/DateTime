@@ -66,6 +66,7 @@ class DateTime:
         Constructor of DateTime using datetime
         '''
         self.datetime = datetime.datetime(year, month, day, hour, minute, second, microsecond)
+        self.weekday = datetime.datetime.weekday()
 
     def __str__ (self):
         #print "Values : " + str(self.day) + "/" + str(self.month) + "/" + str(self.year) + " | " + str(self.hour) + ":" + str(self.minute) + ":" + str(self.second) 
