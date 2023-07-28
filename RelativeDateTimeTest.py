@@ -5,10 +5,17 @@ import mx.DateTime
 
 def RelativeDateTime(years=0, months=0, weeks=0, days=0, hours=0, minutes=0, seconds=0):
     var = mx.DateTime.now() + mx.DateTime.RelativeDateTime(years=years, months=months, weeks=weeks, days=days, hours=hours, minutes=minutes, seconds=seconds)
-    var2 = datetime.now() +  relativedelta(years=years, months=months, weeks=weeks, days=days,  hours=hours, minutes=minutes, seconds=seconds)
+    delta = relativedelta(years=years, months=months, weeks=weeks, days=days,  hours=hours, minutes=minutes, seconds=seconds, microseconds=0)
+    var2 = datetime.now() + delta
 
-    print("mx.DateTime implementation of RelativeDateTime :  " + str(var))
-    print("dateutil implementation of RelativeDateTime : " + str(var2))
+    #datetimeNow = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-4]
+    #datetimeNow = datetime.datetime.strptime(datetimeNow, '%Y-%m-%d %H:%M:%S.%f')
+ 
+    var_str = var.strftime("%Y-%m-%d %H:%M:%S") 
+    var2_str = var2.strftime("%Y-%m-%d %H:%M:%S")
+
+    print("mx.DateTime implementation of RelativeDateTime :  " + var_str)
+    print("dateutil implementation of RelativeDateTime : " + var2_str)
 
     return var, var2
 
