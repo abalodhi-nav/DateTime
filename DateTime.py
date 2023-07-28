@@ -63,7 +63,7 @@ class DateTime:
     '''
     def __init__ (self, year, month, day, hour=0, minute=0, second=0, microsecond=0 ):
         '''
-        Constructor of DateTIme using datetime
+        Constructor of DateTime using datetime
         '''
         self.datetime = datetime.datetime(year, month, day, hour, minute, second, microsecond)
 
@@ -82,7 +82,7 @@ def Date( year, month, day):
     date = DateTime(year, month, day)
     print "mx.DateTime implementation of Date : " + date.__str__()
     print "datetime implementation is Date : " + str(datetime.datetime(year,month,day))
-
+    return date
 
 
 def ParseDateTime(date_str):
