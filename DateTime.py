@@ -18,20 +18,47 @@ def setPythonPath():
     if new_path not in os.environ.get(['PYTHONPATH'], '').split(os.pathsep):
         os.environ["PYTHONPATH"] = new_path + os.pathsep + os.environ.get('PYTHONPATH','')
 
-
-########################
-#      functions       #
-########################
+#######################
+#      Classes        #
+#######################
 
 class datetime(dt):
 
     def __init__(self, *args, **kwargs):
         dt.__init__(self, *args, **kwargs)
-        self.day_of_week = self.weekday() 
+        self.day_of_week = self.weekday()
 
 
     def test(self):
         print("test")
+
+
+class DateTime:
+    '''
+    '''
+    def __init__ (self, year, month, day, hour=0, minute=0, second=0, microsecond=0 ):
+        '''
+        Constructor of DateTime using datetime
+        '''
+        self.datetime = dt(year, month, day, hour, minute, second, microsecond)
+        self.weekday = self.datetime.weekday
+        self.day_of_week = self.weekday
+
+
+
+    def __str__ (self):
+        #print "Values : " + str(self.day) + "/" + str(self.month) + "/" + str(self.year) + " | " + str(self.hour) + ":" + str(self.minute) + ":" + str(self.second)
+        return self.datetime.strftime("%Y-%m-%d %H:%M:%S")
+
+
+    def strftime (self, format_string):
+        return self.datetime.strftime(format_string)
+
+
+
+########################
+#      functions       #
+########################
 
 
 def now():
@@ -63,46 +90,10 @@ def today():
     return dateToday
 
 
-
-#####################
-#    Constructors   #
-#####################
-
-class DateTime:
-    '''
-    '''
-    def __init__ (self, year, month, day, hour=0, minute=0, second=0, microsecond=0 ):
-        '''
-        Constructor of DateTime using datetime
-        '''
-        self.datetime = dt(year, month, day, hour, minute, second, microsecond)
-        self.weekday = self.datetime.weekday
-        self.day_of_week = self.weekday
-
-
-
-    def __str__ (self):
-        #print "Values : " + str(self.day) + "/" + str(self.month) + "/" + str(self.year) + " | " + str(self.hour) + ":" + str(self.minute) + ":" + str(self.second) 
-        return self.datetime.strftime("%Y-%m-%d %H:%M:%S")
-    
-
-    def strftime (self, format_string):         
-        return self.datetime.strftime(format_string)
-
-
-
-def Date( year, month, day):
-    
-    date = DateTime(year, month, day)
-    print "mx.DateTime implementation of Date : " + date.__str__()
-    print "datetime implementation is Date : " + str(dt(year,month,day))
-    return date
-
-
 def ParseDateTime(date_str):
     '''
     the ParseDateTime function of mx.DateTime
-    NOTE : THis is used in files : 
+    NOTE : THis is used in files :
     aosos\custom\ajb\osos\server_agent\Resume.py
     aosos\custom\ajb\osos\server_agent\Job.py
 
@@ -113,6 +104,21 @@ def ParseDateTime(date_str):
     print 'datetime implementation of ParseDateTime = ' + str(parsedDT)
 
     return parsedDT
+
+
+#####################
+#    Constructors   #
+#####################
+
+    
+def Date( year, month, day):
+
+    date = DateTime(year, month, day)
+    print "mx.DateTime implementation of Date : " + date.__str__()
+    print "datetime implementation is Date : " + str(dt(year,month,day))
+    return date
+
+
 
 #######################
 #   String <-> Time   #
