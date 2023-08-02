@@ -76,8 +76,9 @@ def now():
     '''
     the now function of datetime vs mx.DateTime
     ###########################################
-    return type : 
-        
+    return : 
+        datetimeNow = current tiemstamp , object of class P3.mx.DateTime.datetime
+     
     '''
     datetimeNow = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-4]
     datetimeNow = datetime.strptime(datetimeNow, '%Y-%m-%d %H:%M:%S.%f')
@@ -95,7 +96,7 @@ def today():
 
     '''
     datetimeToday = date.today()
-    dateToday = built_in_datetime(datetimeToday.year,datetimeToday.month,datetimeToday.day)    
+    dateToday = datetime(datetimeToday.year,datetimeToday.month,datetimeToday.day)    
     print "The datetime implementation is: " + str(dateToday)
     
     # TODO comment the following and return dateToday
@@ -116,7 +117,7 @@ def ParseDateTime(date_str):
     return type :
 
     '''
-    parsedDT = built_in_datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+    parsedDT = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
     print 'datetime implementation of ParseDateTime = ' + str(parsedDT)
 
     return parsedDT
