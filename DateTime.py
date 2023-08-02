@@ -2,7 +2,8 @@
 #    Imports       #
 ####################
 
-from datetime import datetime as dt
+from datetime import datetime as inbuilt_datetime
+from datetime import date
 import os
 import mx.DateTime
 
@@ -22,10 +23,17 @@ def setPythonPath():
 #      Classes        #
 #######################
 
-class datetime(dt):
-
+class datetime(inbuilt_datetime):
+    '''
+    datetime class inherits from the inbuilt datetime.datetime class
+    '''
     def __init__(self, *args, **kwargs):
-        dt.__init__(self, *args, **kwargs)
+        '''
+        override the constructor to add required attributes
+        '''
+        inbuilt_datetime.__init__(self, *args, **kwargs)
+
+        # Extra attributes
         self.day_of_week = self.weekday()
 
 
@@ -36,14 +44,14 @@ class datetime(dt):
 class DateTime:
     '''
     '''
+
     def __init__ (self, year, month, day, hour=0, minute=0, second=0, microsecond=0 ):
         '''
         Constructor of DateTime using datetime
         '''
-        self.datetime = dt(year, month, day, hour, minute, second, microsecond)
+        self.datetime = inbuilt_datetime(year, month, day, hour, minute, second, microsecond)
         self.weekday = self.datetime.weekday
-        self.day_of_week = self.weekday
-
+        self.day_of_week = self.weekday()
 
 
     def __str__ (self):
@@ -55,7 +63,6 @@ class DateTime:
         return self.datetime.strftime(format_string)
 
 
-
 ########################
 #      functions       #
 ########################
@@ -65,7 +72,6 @@ def now():
     '''
     the now function of datetime vs mx.DateTime
     '''
-    print datetime    
     datetimeNow = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-4]
     datetimeNow = datetime.strptime(datetimeNow, '%Y-%m-%d %H:%M:%S.%f')
     print "datetime implementation of datetime now() : " + str(datetimeNow)
@@ -75,17 +81,16 @@ def now():
     return datetimeNow
 
 
-
 def today(): 
     '''
     the today function of datetime vs mx.DateTime
     '''
-    datetimeToday =dt.date.today()
+    datetimeToday = inbuilt_datetime.date.today()
     # the .today() gives non-zero Time stamp in datetime, hence creating an object this way 
-    dateToday= dt(datetimeToday.year,datetimeToday.month,datetimeToday.day)    
+    dateToday = inbuilt_datetime(datetimeToday.year,datetimeToday.month,datetimeToday.day)    
     print "The datetime implementation is: " + str(dateToday)
     
-    # TODO comment the following and reurn dateToday
+    # TODO comment the following and return dateToday
     print "mx.DateTime  implementation of datetime today : " + str(mx.DateTime.today())
     return dateToday
 
@@ -99,7 +104,7 @@ def ParseDateTime(date_str):
 
     TODO : Verify if these files are still in use
     '''
-    parsedDT =  dt.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+    parsedDT = inbuilt_datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
 
     print 'datetime implementation of ParseDateTime = ' + str(parsedDT)
 
@@ -109,15 +114,13 @@ def ParseDateTime(date_str):
 #####################
 #    Constructors   #
 #####################
-
     
-def Date( year, month, day):
+def Date(year, month, day):
 
     date = DateTime(year, month, day)
     print "mx.DateTime implementation of Date : " + date.__str__()
-    print "datetime implementation is Date : " + str(dt(year,month,day))
+    print "datetime implementation is Date : " + str(inbuilt_datetime(year,month,day))
     return date
-
 
 
 #######################
@@ -139,7 +142,7 @@ def RelativeDateTime(years=0, months=0, weeks=0, days=0, hours=0, minutes=0, sec
 
     var = mx.DateTime.now() + mx.DateTime.RelativeDateTime(years=years, months=months, weeks=weeks, days=days, hours=hours, minutes=minutes, seconds=seconds)
     delta = relativedelta(years=years, months=months, weeks=weeks, days=days,  hours=hours, minutes=minutes, seconds=seconds, microseconds=0)
-    var2 = dt.now() + delta
+    var2 = inbuilt_datetime.now() + delta
 
 
     var_str = var.strftime("%Y-%m-%d %H:%M:%S")
