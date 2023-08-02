@@ -2,11 +2,12 @@
 #    Imports       #
 ####################
 
-from datetime import datetime as inbuilt_datetime
-from datetime import date
 import os
+from datetime import datetime as built_in_datetime
+from datetime import date
 import mx.DateTime
-
+from dateutil.relativedelta import relativedelta
+import calendar
 
 ######################
 # Utility functions  #
@@ -19,23 +20,25 @@ def setPythonPath():
     if new_path not in os.environ.get(['PYTHONPATH'], '').split(os.pathsep):
         os.environ["PYTHONPATH"] = new_path + os.pathsep + os.environ.get('PYTHONPATH','')
 
+
 #######################
 #      Classes        #
 #######################
 
-class datetime(inbuilt_datetime):
+class datetime(built_in_datetime):
     '''
-    datetime class inherits from the inbuilt datetime.datetime class
+    datetime class inherits from the built_in datetime.datetime class
+    custom datetime class that inherits from the built-in datetime.datetime class.
     '''
     def __init__(self, *args, **kwargs):
         '''
-        override the constructor to add required attributes
+        Constructor override to add required attributes
         '''
-        inbuilt_datetime.__init__(self, *args, **kwargs)
+        built_in_datetime.__init__(self, *args, **kwargs)
 
         # Extra attributes
         self.day_of_week = self.weekday()
-
+        self.days_in_month = calendar.monthrange(self.year, self.month)[1]
 
     def test(self):
         print("test")
@@ -43,15 +46,16 @@ class datetime(inbuilt_datetime):
 
 class DateTime:
     '''
+    DateTime class for working with dates and times.
     '''
 
     def __init__ (self, year, month, day, hour=0, minute=0, second=0, microsecond=0 ):
         '''
         Constructor of DateTime using datetime
         '''
-        self.datetime = inbuilt_datetime(year, month, day, hour, minute, second, microsecond)
-        self.weekday = self.datetime.weekday
-        self.day_of_week = self.weekday()
+        self.datetime = built_in_datetime(year, month, day, hour, minute, second, microsecond)
+        self.day_of_week = self.datetime.weekday()
+        self.days_in_month = calendar.monthrange(year, month)[1]
 
 
     def __str__ (self):
@@ -71,12 +75,14 @@ class DateTime:
 def now():
     '''
     the now function of datetime vs mx.DateTime
+    ###########################################
+    return type : 
+        
     '''
     datetimeNow = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-4]
     datetimeNow = datetime.strptime(datetimeNow, '%Y-%m-%d %H:%M:%S.%f')
     print "datetime implementation of datetime now() : " + str(datetimeNow)
 
-    # TODO comment the following out and return the datetimeNow
     print "mx.DateTime implementation of datetime now() : " + str(mx.DateTime.now())
     return datetimeNow
 
@@ -84,10 +90,12 @@ def now():
 def today(): 
     '''
     the today function of datetime vs mx.DateTime
+    ###########################################
+    return type :
+
     '''
-    datetimeToday = inbuilt_datetime.date.today()
-    # the .today() gives non-zero Time stamp in datetime, hence creating an object this way 
-    dateToday = inbuilt_datetime(datetimeToday.year,datetimeToday.month,datetimeToday.day)    
+    datetimeToday = date.today()
+    dateToday = built_in_datetime(datetimeToday.year,datetimeToday.month,datetimeToday.day)    
     print "The datetime implementation is: " + str(dateToday)
     
     # TODO comment the following and return dateToday
@@ -103,9 +111,12 @@ def ParseDateTime(date_str):
     aosos\custom\ajb\osos\server_agent\Job.py
 
     TODO : Verify if these files are still in use
-    '''
-    parsedDT = inbuilt_datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+    
+    ###########################################
+    return type :
 
+    '''
+    parsedDT = built_in_datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
     print 'datetime implementation of ParseDateTime = ' + str(parsedDT)
 
     return parsedDT
@@ -116,10 +127,15 @@ def ParseDateTime(date_str):
 #####################
     
 def Date(year, month, day):
-
+    '''
+    Constructor of the Date
+    ###########################################
+    return type :
+        DateTime
+    '''
     date = DateTime(year, month, day)
     print "mx.DateTime implementation of Date : " + date.__str__()
-    print "datetime implementation is Date : " + str(inbuilt_datetime(year,month,day))
+    print "datetime implementation is Date : " + str(built_in_datetime(year,month,day))
     return date
 
 
@@ -135,15 +151,12 @@ def strptime(datetime_string, format_string):
 
 def RelativeDateTime(years=0, months=0, weeks=0, days=0, hours=0, minutes=0, seconds=0):   
     '''
-    years=0,months=0,days=0, year=0,month=0,day=0, hours=0,minutes=0,seconds=0, hour=None,minute=None,second=None, weekday=None,weeks=0
     '''    
-
-    from dateutil.relativedelta import relativedelta
 
     var = mx.DateTime.now() + mx.DateTime.RelativeDateTime(years=years, months=months, weeks=weeks, days=days, hours=hours, minutes=minutes, seconds=seconds)
     delta = relativedelta(years=years, months=months, weeks=weeks, days=days,  hours=hours, minutes=minutes, seconds=seconds, microseconds=0)
-    var2 = inbuilt_datetime.now() + delta
 
+    var2 = built_in_datetime.now() + delta
 
     var_str = var.strftime("%Y-%m-%d %H:%M:%S")
     var2_str = var2.strftime("%Y-%m-%d %H:%M:%S")
