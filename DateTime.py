@@ -44,12 +44,12 @@ class datetime(built_in_datetime):
         '''
         '''
         #return built_in_datetime.replace(year=year, month=month, day=day, hour=hour, minute=minute, second=second)
-        current_date = self.date()  # Extract the date part
+        current_date = self  # Extract the date part
         year = current_date.year if year is None else int(year)
         month = current_date.month if month is None else int(month)
         day = current_date.day if day is None else int(day)
         new_date = current_date.replace(year=year, month=month, day=day)  # Create a new date object
-        return self.__class__(year=new_date.year, month=new_date.month, day=new_date.day, hour=hour, minute=minute, second=second)
+        return new_date #self.__class__(year=new_date.year, month=new_date.month, day=new_date.day, hour=hour, minute=minute, second=second)
 
 
 
