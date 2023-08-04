@@ -27,8 +27,7 @@ def setPythonPath():
 
 class datetime(built_in_datetime):
     '''
-    datetime class inherits from the built_in datetime.datetime class
-    custom datetime class that inherits from the built-in datetime.datetime class.
+    CustomDateTime class that inherits from the built-in datetime.datetime class.
     '''
     def __init__(self, *args, **kwargs):
         '''
@@ -40,16 +39,37 @@ class datetime(built_in_datetime):
         self.day_of_week = self.weekday()
         self.days_in_month = calendar.monthrange(self.year, self.month)[1]
 
+
     def rebuild(self, year=None, month=None, day=None, hour=None, minute=None, second=None, timezone=None, r=None, dst=None):
         '''
+        Rebuilds the datetime object with specified attributes.
+
+        Args:
+            year (int): The year.
+            month (int): The month.
+            day (int): The day.
+            hour (int): The hour.
+            minute (int): The minute.
+            second (int): The second.
+            timezone: The timezone.
+            r: The r attribute.
+            dst: The dst attribute.
+
+        Returns:
+            CustomDateTime: The rebuilt datetime object
         '''
-        #return built_in_datetime.replace(year=year, month=month, day=day, hour=hour, minute=minute, second=second)
-        current_date = self  # Extract the date part
+        current_date = self  
         year = current_date.year if year is None else int(year)
         month = current_date.month if month is None else int(month)
         day = current_date.day if day is None else int(day)
-        new_date = current_date.replace(year=year, month=month, day=day)  # Create a new date object
-        return new_date #self.__class__(year=new_date.year, month=new_date.month, day=new_date.day, hour=hour, minute=minute, second=second)
+        return current_date.replace(year=year, month=month, day=day)  
+
+
+    def Format(self, format_string):
+        '''
+        '''
+        return self.strftime(format_string)
+
 
 
 
