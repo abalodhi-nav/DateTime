@@ -55,7 +55,8 @@ class datetime(built_in_datetime):
             r: The r attribute.
             dst: The dst attribute.
 
-        Returns:
+        ###########################################
+        returns:
             CustomDateTime: The rebuilt datetime object
         '''
         current_date = self  
@@ -67,9 +68,14 @@ class datetime(built_in_datetime):
 
     def Format(self, format_string):
         '''
+        ###########################################
         '''
         return self.strftime(format_string)
 
+    def absvalues(self):
+        '''
+        '''
+        return self.abs()
 
 
 
@@ -106,14 +112,15 @@ def now():
     the now function of datetime vs mx.DateTime
     ###########################################
     return : 
-        datetimeNow = current tiemstamp , object of class P3.mx.DateTime.datetime
+        datetimeNow = current timestamp , object of class P3.mx.DateTime.datetime
      
     '''
     datetimeNow = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-4]
     datetimeNow = datetime.strptime(datetimeNow, '%Y-%m-%d %H:%M:%S.%f')
+    
     print "datetime implementation of datetime now() : " + str(datetimeNow)
-
     print "mx.DateTime implementation of datetime now() : " + str(mx.DateTime.now())
+    
     return datetimeNow
 
 
@@ -148,6 +155,8 @@ def ParseDateTime(date_str):
     '''
     parsedDT = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
     print 'datetime implementation of ParseDateTime = ' + str(parsedDT)
+    
+    print 'mx.DateTime implementation of ParseDateTime = '  + str(mx.DateTime.ISO.ParseDateTime(date_str))
 
     return parsedDT
 
@@ -165,7 +174,7 @@ def Date(year, month, day):
     '''
     date = DateTime(year, month, day)
     print "mx.DateTime implementation of Date : " + date.__str__()
-    print "datetime implementation is Date : " + str(built_in_datetime(year,month,day))
+    print "datetime implementation is Date : " + str(datetime(year,month,day))
     return date
 
 
@@ -174,8 +183,11 @@ def Date(year, month, day):
 #######################
 
 def strptime(datetime_string, format_string):
-    from datetime import datetime
-    return datetime.strptime(datetime_string, format_string)
+    '''
+    '''
+    parsed_datetime = datetime.strptime(datetime_string, format_string)
+    print("Parsed datetime: " + str(parsed_datetime))
+    return parsed_datetime
 
 
 
