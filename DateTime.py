@@ -97,9 +97,16 @@ class DateTime:
         #print "Values : " + str(self.day) + "/" + str(self.month) + "/" + str(self.year) + " | " + str(self.hour) + ":" + str(self.minute) + ":" + str(self.second)
         return self.datetime.strftime("%Y-%m-%d %H:%M:%S")
 
-
-    def strftime (self, format_string):
-        return self.datetime.strftime(format_string)
+    def strftime(self, format_string):
+        '''
+        '''
+        datetime_formatted = self.datetime.strftime(format_string)
+        mx_datetime_formatted = mx.DateTime.strftime(self, format_string)
+          
+        print("Formatted datetime (using datetime module): " + str(datetime_formatted))
+        print("Formatted datetime (using mx.DateTime module): " + str(mx_datetime_formatted))
+        
+        return datetime_formatted
 
 
 ########################
@@ -186,10 +193,27 @@ def strptime(datetime_string, format_string):
     '''
     '''
     parsed_datetime = datetime.strptime(datetime_string, format_string)
-    print("Parsed datetime: " + str(parsed_datetime))
+    print("time parsed as per datetime: " + str(parsed_datetime))
+    # print("time parsed as per mx.DateTime: " + str(mx.DateTime.strftime(mx.DateTime.strptime(datetime_string, format_string), format_string  ))
     return parsed_datetime
 
 
+def strftime(date_object, format_string):
+    '''
+    '''
+    datetime_formatted = datetime.strftime(date_object, format_string)
+    # mx_datetime = mx.DateTime.DateTimeFromTicks(date_object)
+    # mx_datetime_formatted = mx.DateTime.strftime(date_object, format_string)
+
+    print("Formatted datetime (using datetime module): " + str(datetime_formatted))
+    #print("Formatted datetime (using mx.DateTime module): " + str(mx_datetime_formatted))
+
+    return datetime_formatted
+
+
+########################
+#      time delta      #
+########################
 
 def RelativeDateTime(years=0, months=0, weeks=0, days=0, hours=0, minutes=0, seconds=0):   
     '''
