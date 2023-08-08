@@ -8,6 +8,7 @@ from datetime import date
 import mx.DateTime
 from dateutil.relativedelta import relativedelta
 import calendar
+import time
 
 ######################
 # Utility functions  #
@@ -40,7 +41,7 @@ class datetime(built_in_datetime):
         self.days_in_month = calendar.monthrange(self.year, self.month)[1]
 
 
-    def rebuild(self, year=None, month=None, day=None, hour=None, minute=None, second=None, timezone=None, r=None, dst=None):
+    def rebuild(self, year=None, month=None, day=None, hour=None, minute=None, second=None, timezone=None):
         '''
         Rebuilds the datetime object with specified attributes.
 
@@ -52,8 +53,6 @@ class datetime(built_in_datetime):
             minute (int): The minute.
             second (int): The second.
             timezone: The timezone.
-            r: The r attribute.
-            dst: The dst attribute.
 
         ###########################################
         returns:
@@ -63,7 +62,13 @@ class datetime(built_in_datetime):
         year = current_date.year if year is None else int(year)
         month = current_date.month if month is None else int(month)
         day = current_date.day if day is None else int(day)
-        return current_date.replace(year=year, month=month, day=day)  
+        
+        replaced = current_date.replace(year=year, month=month, day=day)
+
+        print ("datetime implementation of rebuild() : " + str(replaced) )
+        print ("mx.DateTime implementation of rebuild() : " + str(mx.DateTime.now().rebuild(year=year, month=month, day=day) ))
+
+        return replaced
 
 
     def Format(self, format_string):
@@ -74,10 +79,19 @@ class datetime(built_in_datetime):
 
     def absvalues(self):
         '''
+        ###########################################
         '''
-        return self.abs()
+        now = datetime.now()
+        day_one = datetime(1, 1, 1) # January 1, 0001
+        absdate = (now - day_one).days + 1 
+        abstime = (now - now.replace(hour=0, minute=0, second=0, microsecond=0)).total_seconds()
+        
+        print ("datetime implementation of absvalues() : " + str(absdate) + str(abstime))
+        print ("mx.DateTime implementation of absvalues() : " + str(mx.DateTime.now().absvalues()))
+        
+        return (absdate, abstime)
 
-
+    
 
 class DateTime:
     '''
@@ -125,8 +139,8 @@ def now():
     datetimeNow = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-4]
     datetimeNow = datetime.strptime(datetimeNow, '%Y-%m-%d %H:%M:%S.%f')
     
-    print "datetime implementation of datetime now() : " + str(datetimeNow)
-    print "mx.DateTime implementation of datetime now() : " + str(mx.DateTime.now())
+    print "datetime implementation of now() : " + str(datetimeNow)
+    print "mx.DateTime implementation of now() : " + str(mx.DateTime.now())
     
     return datetimeNow
 
@@ -140,10 +154,10 @@ def today():
     '''
     datetimeToday = date.today()
     dateToday = datetime(datetimeToday.year,datetimeToday.month,datetimeToday.day)    
-    print "The datetime implementation is: " + str(dateToday)
     
-    # TODO comment the following and return dateToday
-    print "mx.DateTime  implementation of datetime today : " + str(mx.DateTime.today())
+    print "datetime implementation of today() : " + str(dateToday)
+    print "mx.DateTime implementation of today() : " + str(mx.DateTime.today())
+    
     return dateToday
 
 
@@ -161,9 +175,9 @@ def ParseDateTime(date_str):
 
     '''
     parsedDT = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
-    print 'datetime implementation of ParseDateTime = ' + str(parsedDT)
+    print 'datetime implementation of ParseDateTime() : ' + str(parsedDT)
     
-    print 'mx.DateTime implementation of ParseDateTime = '  + str(mx.DateTime.ISO.ParseDateTime(date_str))
+    print 'mx.DateTime implementation of ParseDateTime() : '  + str(mx.DateTime.ISO.ParseDateTime(date_str))
 
     return parsedDT
 
@@ -180,8 +194,8 @@ def Date(year, month, day):
         DateTime
     '''
     date = DateTime(year, month, day)
-    print "mx.DateTime implementation of Date : " + date.__str__()
-    print "datetime implementation is Date : " + str(datetime(year,month,day))
+    print "mx.DateTime implementation of constructor Date() : " + date.__str__()
+    print "datetime implementation is constructor Date() : " + str(datetime(year,month,day))
     return date
 
 
@@ -193,19 +207,19 @@ def strptime(datetime_string, format_string):
     '''
     '''
     parsed_datetime = datetime.strptime(datetime_string, format_string)
-    print("time parsed as per datetime: " + str(parsed_datetime))
+    print("datetime implementation of strptime() : " + str(parsed_datetime))
     # print("time parsed as per mx.DateTime: " + str(mx.DateTime.strftime(mx.DateTime.strptime(datetime_string, format_string), format_string  ))
     return parsed_datetime
 
 
-def strftime(date_object, format_string):
+def strftime(date_object, format_string='%c'):
     '''
     '''
     datetime_formatted = datetime.strftime(date_object, format_string)
     # mx_datetime = mx.DateTime.DateTimeFromTicks(date_object)
     # mx_datetime_formatted = mx.DateTime.strftime(date_object, format_string)
 
-    print("Formatted datetime (using datetime module): " + str(datetime_formatted))
+    print("datetime implementation of strftime() : " + str(datetime_formatted))
     #print("Formatted datetime (using mx.DateTime module): " + str(mx_datetime_formatted))
 
     return datetime_formatted
@@ -227,8 +241,35 @@ def RelativeDateTime(years=0, months=0, weeks=0, days=0, hours=0, minutes=0, sec
     var_str = var.strftime("%Y-%m-%d %H:%M:%S")
     var2_str = var2.strftime("%Y-%m-%d %H:%M:%S")
 
-    print("mx.DateTime implementation of RelativeDateTime :  " + var_str)
-    print("dateutil implementation of RelativeDateTime : " + var2_str)
+    print("mx.DateTime implementation of RelativeDateTime() :  " + var_str)
+    print("dateutil implementation of RelativeDateTime() : " + var2_str)
 
-    return  delta
+    return delta
+
+
+#########################
+#     dir() functions   #
+#########################
+
+
+def gmtime(date=built_in_datetime.utcnow()):
+    '''
+
+    '''
+
+    print("mx.DateTime implementation of gmtime() :  " + str(mx.DateTime.gmtime() ) )
+    print("datetime implementation of gmtime() : " + str(date) )
+
+    return datetime(date)
+
+
+def localtime(date=built_in_datetime.now()):
+    '''
+
+    '''
+
+    print("mx.DateTime implementation of localtime() :  " + str(mx.DateTime.gmtime() ) )
+    print("datetime implementation of localtime() : " + str(date) )
+
+    return datetime(date)
 
