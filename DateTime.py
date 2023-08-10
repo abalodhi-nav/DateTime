@@ -248,9 +248,9 @@ def RelativeDateTime(years=0, months=0, weeks=0, days=0, hours=0, minutes=0, sec
     return delta
 
 
-#########################
-#     dir() functions   #
-#########################
+##########################################
+#     dir(mx.DateTime.now()) functions   #
+##########################################
 
 
 def gmtime(date=datetime.utcnow(), tzone_offset_in_min=0):
@@ -286,6 +286,26 @@ def localtime(local_datetime=datetime.now()):
 
 
     print("datetime implementation of localtime() : " + str(local_datetime) )
+
+    return local_datetime
+
+
+####################################
+#     dir(mx.DateTime) functions   #
+####################################
+
+def DateFrom(local_datetime=datetime.now()):
+    '''
+
+    '''
+
+    if isinstance(local_datetime, int): # if ticks are given
+        print("mx.DateTime implementation of DateFrom() :  " + str(mx.DateTime.localtime(local_datetime) ))
+        local_datetime = datetime(1969,12, 31, 19,00,00) + relativedelta(seconds=local_datetime)
+    else:
+        print("mx.DateTime implementation of DateFrom() :  " + str(mx.DateTime.localtime() ))
+
+    print("datetime implementation of DateFrom() : " + str(local_datetime) )
 
     return local_datetime
 
