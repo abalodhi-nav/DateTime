@@ -9,6 +9,7 @@ import mx.DateTime
 from dateutil.relativedelta import relativedelta
 import calendar
 import time
+import copy
 
 ######################
 # Utility functions  #
@@ -252,24 +253,39 @@ def RelativeDateTime(years=0, months=0, weeks=0, days=0, hours=0, minutes=0, sec
 #########################
 
 
-def gmtime(date=built_in_datetime.utcnow()):
+def gmtime(date=datetime.utcnow(), tzone_offset_in_min=0):
+    '''
+    Custom gmtime() function that calculates the local time given a UTC datetime and timezone offset.
+
+    Parameters:
+        date (datetime.datetime): The UTC datetime object. Defaults to the current UTC datetime.
+        tzone_offset_in_min (int): The timezone offset in minutes. Defaults to 0 (no offset).
+
+    #########################################################################################
+    Returns:
+        datetime.datetime: The local datetime object based on the provided UTC datetime and timezone offset.
+    '''
+    
+    gm_datetime = date  + relativedelta(minutes=tzone_offset_in_min) 
+    print("mx.DateTime implementation of gmtime() :  " + str(mx.DateTime.gmtime() + mx.DateTime.TimeDelta(minutes=tzone_offset_in_min)))
+    print("datetime implementation of gmtime() : " + str(gm_datetime) )
+
+    return gm_datetime
+
+
+def localtime(local_datetime=datetime.now()):
     '''
 
     '''
 
-    print("mx.DateTime implementation of gmtime() :  " + str(mx.DateTime.gmtime() ) )
-    print("datetime implementation of gmtime() : " + str(date) )
+    if isinstance(local_datetime, int):
+        print("mx.DateTime implementation of localtime() :  " + str(mx.DateTime.localtime(local_datetime) ))
+        local_datetime = datetime(1969,12, 31, 19,00,00) + relativedelta(seconds=local_datetime)
+    else:
+        print("mx.DateTime implementation of localtime() :  " + str(mx.DateTime.localtime() ))
 
-    return datetime(date)
 
+    print("datetime implementation of localtime() : " + str(local_datetime) )
 
-def localtime(date=built_in_datetime.now()):
-    '''
-
-    '''
-
-    print("mx.DateTime implementation of localtime() :  " + str(mx.DateTime.gmtime() ) )
-    print("datetime implementation of localtime() : " + str(date) )
-
-    return datetime(date)
+    return local_datetime
 
