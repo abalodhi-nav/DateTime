@@ -346,3 +346,24 @@ def DateTimeFromTicks(local_datetime=datetime.now()):
 
     return local_datetime
 
+
+################################################################
+
+def RelativeDate(years=0, months=0, weeks=0, days=0, hours=0, minutes=0, seconds=0):
+    '''
+    '''
+
+    var = mx.DateTime.now() + mx.DateTime.RelativeDate(years=years, months=months, weeks=weeks, days=days, hours=hours, minutes=minutes, seconds=seconds)
+    delta = relativedelta(years=years, months=months, weeks=weeks, days=days,  hours=hours, minutes=minutes, seconds=seconds, microseconds=0)
+
+    var2 = built_in_datetime.now() + delta
+
+    var_str = var.strftime("%Y-%m-%d %H:%M:%S")
+    var2_str = var2.strftime("%Y-%m-%d %H:%M:%S")
+
+    print("mx.DateTime implementation of RelativeDate() :  " + var_str)
+    print("dateutil implementation of RelativeDate() : " + var2_str)
+
+    return delta
+
+
