@@ -273,8 +273,19 @@ def gmtime(date=datetime.utcnow(), tzone_offset_in_min=0):
     return gm_datetime
 
 
+
 def localtime(local_datetime=datetime.now()):
     '''
+    Converts a given local datetime object or ticks to a modified local datetime object.
+
+    Args:
+        local_datetime (datetime.datetime or int, optional): The local datetime object or ticks.
+            If not provided, the current datetime is used. 
+            If an integer is provided, it is treated as ticks.
+
+    ################################################################################
+    Returns:
+        datetime.datetime: The modified local datetime object.
 
     '''
 
@@ -282,7 +293,7 @@ def localtime(local_datetime=datetime.now()):
         print("mx.DateTime implementation of localtime() :  " + str(mx.DateTime.localtime(local_datetime) ))
         local_datetime = datetime(1969,12, 31, 19,00,00) + relativedelta(seconds=local_datetime)
     else:
-        print("mx.DateTime implementation of localtime() :  " + str(mx.DateTime.localtime() ))
+        print("mx.DateTime implementation of localtime() :  " + str(mx.DateTime.localtime() )) #TODO put localtime here which returns datetime
 
 
     print("datetime implementation of localtime() : " + str(local_datetime) )
@@ -296,16 +307,42 @@ def localtime(local_datetime=datetime.now()):
 
 def DateFrom(local_datetime=datetime.now()):
     '''
-
     '''
-
     if isinstance(local_datetime, int): # if ticks are given
-        print("mx.DateTime implementation of DateFrom() :  " + str(mx.DateTime.localtime(local_datetime) ))
+        print("mx.DateTime implementation of DateFrom() :  " + str(mx.DateTime.DateFrom(local_datetime) ))
         local_datetime = datetime(1969,12, 31, 19,00,00) + relativedelta(seconds=local_datetime)
     else:
-        print("mx.DateTime implementation of DateFrom() :  " + str(mx.DateTime.localtime() ))
+        print("mx.DateTime implementation of DateFrom() :  " + str(mx.DateTime.DateFrom(local_datetime) ))
 
     print("datetime implementation of DateFrom() : " + str(local_datetime) )
+
+    return local_datetime
+
+
+def DateTimeFrom(local_datetime=datetime.now()):
+    '''
+    '''
+    if isinstance(local_datetime, int): # if ticks are given
+        print("mx.DateTime implementation of DateTimeFrom() :  " + str(mx.DateTime.DateTimeFrom(local_datetime) ))
+        local_datetime = datetime(1969,12, 31, 19,00,00) + relativedelta(seconds=local_datetime)
+    else:
+        print("mx.DateTime implementation of DateTimeFrom() :  " + str(mx.DateTime.DateTimeFrom(local_datetime) ))
+
+    print("datetime implementation of DateTimeFrom() : " + str(local_datetime) )
+
+    return local_datetime
+
+
+def DateTimeFromTicks(local_datetime=datetime.now()):
+    '''
+    '''
+    if isinstance(local_datetime, int): # if ticks are given
+        print("mx.DateTime implementation of DateTimeFromTicks() :  " + str(mx.DateTime.DateTimeFromTicks(local_datetime) ))
+        local_datetime = datetime(1969,12, 31, 19,00,00) + relativedelta(seconds=local_datetime)
+    else:
+        print("mx.DateTime implementation of DateTimeFromTicks() :  " + str(mx.DateTime.DateTimeFromTicks() ))
+
+    print("datetime implementation of DateTimeFromTicks() : " + str(local_datetime) )
 
     return local_datetime
 
