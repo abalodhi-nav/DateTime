@@ -367,3 +367,25 @@ def RelativeDate(years=0, months=0, weeks=0, days=0, hours=0, minutes=0, seconds
     return delta
 
 
+
+def RelativeDateTimeDiff(date1=None, date2=None):
+    
+    '''
+    '''
+    
+
+    rel_del = relativedelta(date1, date2)
+
+    return rel_del
+
+
+def TimeDelta(hours=0,minutes=0,seconds=0):
+    '''
+    '''
+    tim_del = mx.DateTime.TimeDelta(hours=hours, minutes=minutes, seconds=seconds)
+    time_delta = relativedelta( hours=hours, minutes=minutes, seconds=seconds)
+    
+    print("mx.DateTime implementation of TimeDelta() :  " + str(tim_del) )
+    print("dateutil implementation of TimeDelta() : " + str(time_delta) )
+
+    return time_delta
