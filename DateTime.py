@@ -23,6 +23,12 @@ def setPythonPath():
         os.environ["PYTHONPATH"] = new_path + os.pathsep + os.environ.get('PYTHONPATH','')
 
 
+######################
+#     constants      #
+######################
+oneDay =  relativedelta(hours=24)  # one day = 24 hours
+
+
 #######################
 #      Classes        #
 #######################
@@ -40,7 +46,7 @@ class datetime(built_in_datetime):
         # Extra attributes
         self.day_of_week = self.weekday()
         self.days_in_month = calendar.monthrange(self.year, self.month)[1]
-
+        self.oneDay =  relativedelta(hours=24)
 
     def rebuild(self, year=None, month=None, day=None, hour=None, minute=None, second=None, timezone=None):
         '''
@@ -63,7 +69,7 @@ class datetime(built_in_datetime):
         year = current_date.year if year is None else int(year)
         month = current_date.month if month is None else int(month)
         day = current_date.day if day is None else int(day)
-        
+        # TODO : this doesn't take hour, minute, second yet        
         replaced = current_date.replace(year=year, month=month, day=day)
 
         print ("datetime implementation of rebuild() : " + str(replaced) )
