@@ -353,7 +353,9 @@ def DateTimeFromTicks(local_datetime=datetime.now()):
     return local_datetime
 
 
-################################################################
+###################################################
+#           Relative Time Difference              #
+###################################################
 
 def RelativeDate(years=0, months=0, weeks=0, days=0, hours=0, minutes=0, seconds=0):
     '''
@@ -385,6 +387,21 @@ def RelativeDateTimeDiff(date1=None, date2=None):
     
     #TODO Add print statements
     return rel_del
+
+def RelativeDateDiff(date1=None, date2=None):
+    '''
+    '''
+    # Check if both dates are provided
+    if date1 is None or date2 is None:
+        raise ValueError("Both date1 and date2 must be provided.")
+
+    # Calculate the difference between the two dates
+    rel_del = relativedelta(date1, date2)
+
+    #TODO Add print statements
+    return rel_del
+
+
 
 
 def TimeDelta(hours=0,minutes=0,seconds=0):
