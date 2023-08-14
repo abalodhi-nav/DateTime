@@ -100,7 +100,7 @@ class datetime(built_in_datetime):
 
     
 
-class DateTime:
+class DateTime(datetime):
     '''
     DateTime class for working with dates and times.
     '''
@@ -109,14 +109,9 @@ class DateTime:
         '''
         Constructor of DateTime using datetime
         '''
-        self.datetime = built_in_datetime(year, month, day, hour, minute, second, microsecond)
-        self.day_of_week = self.datetime.weekday()
-        self.days_in_month = calendar.monthrange(year, month)[1]
-
-
-    def __str__ (self):
-        #print "Values : " + str(self.day) + "/" + str(self.month) + "/" + str(self.year) + " | " + str(self.hour) + ":" + str(self.minute) + ":" + str(self.second)
-        return self.datetime.strftime("%Y-%m-%d %H:%M:%S")
+        self.datetime = datetime(year, month, day, hour, minute, second, microsecond)
+        self.day_of_week = self.weekday()
+        self.days_in_month = calendar.monthrange(self.year, self.month)[1]
 
     def strftime(self, format_string):
         '''
