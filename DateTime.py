@@ -385,7 +385,7 @@ def RelativeDateTimeDiff(date1=None, date2=None):
     # Calculate the difference between the two dates
     rel_del = relativedelta(date1, date2)
    
-    print("mx.DateTime implementation of RelativeDateTimeDiff() :  " + str(mx.DateTime.RelativeDateTimeDiff(date1, date2) ))
+    print("mx.DateTime implementation of RelativeDateTimeDiff() :  " + str(mx.DateTime.RelativeDateTimeDiff(mx.DateTime.DateTime(date1.year, date1.month, date1.day, date1.hour, date1.minute, date1.second), (mx.DateTime.DateTime(date2.year, date2.month, date2.day, date2.hour, date2.minute, date2.second)) )))
     print("dateutil implementation of RelativeDateTimeDiff() : " + str(rel_del) )
 
     return rel_del
@@ -400,7 +400,8 @@ def RelativeDateDiff(date1=None, date2=None):
     # Calculate the difference between the two dates
     rel_del = relativedelta(date1, date2)
 
-    #TODO Add print statements
+    print("mx.DateTime implementation of RelativeDateDiff() :  " + str(mx.DateTime.RelativeDateTimeDiff(mx.DateTime.DateTime(date1.year, date1.month, date1.day, date1.hour, date1.minute, date1.second), (mx.DateTime.DateTime(date2.year, date2.month, date2.day, date2.hour, date2.minute, date2.second)) )))
+    print("dateutil implementation of RelativeDateDiff() : " + str(rel_del) )
 
     return rel_del
 
