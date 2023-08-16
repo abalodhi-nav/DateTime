@@ -117,10 +117,12 @@ class DateTime(datetime):
         '''
         '''
         datetime_formatted = self.datetime.strftime(format_string)
-        mx_datetime_formatted = mx.DateTime.strftime(self, format_string)
-          
+
+        #mx_datetime_formatted = mx.DateTime.strftime(self.datetime, format_string)
+        # AttributeError: 'module' object has no attribute 'strftime'
+ 
         print("Formatted datetime (using datetime module): " + str(datetime_formatted))
-        print("Formatted datetime (using mx.DateTime module): " + str(mx_datetime_formatted))
+        #print("Formatted datetime (using mx.DateTime module): " + str(mx_datetime_formatted))
         
         return datetime_formatted
 
