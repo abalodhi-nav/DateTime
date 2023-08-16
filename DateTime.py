@@ -88,12 +88,12 @@ class datetime(built_in_datetime):
         '''
         ###########################################
         '''
-        now = datetime.now()
+        now = self
         day_one = datetime(1, 1, 1) # January 1, 0001
         absdate = (now - day_one).days + 1 
         abstime = (now - now.replace(hour=0, minute=0, second=0, microsecond=0)).total_seconds()
         
-        print ("datetime implementation of absvalues() : " + str(absdate) + str(abstime))
+        print ("datetime implementation of absvalues() : (" + str(absdate) + " , "+ str(abstime) +")")
         print ("mx.DateTime implementation of absvalues() : " + str(mx.DateTime.now().absvalues()))
         
         return (absdate, abstime)
