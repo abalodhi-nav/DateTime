@@ -98,6 +98,20 @@ class datetime(built_in_datetime):
         
         return (absdate, abstime)
 
+    def ticks(self):
+        '''
+        '''
+        ticks_per_second = 1  # 10**3 Number of ticks in one second
+        delta = self - datetime(1969,12, 31, 00,00,00)
+        ticks = delta.total_seconds() * ticks_per_second
+
+        print ("datetime implementation of ticks() : " + str(ticks))
+        
+        mxTicks = mx.DateTime.strptime(self.strftime('%Y-%m-%d %H:%M:%S'), '%Y-%m-%d %H:%M:%S').ticks()
+        print ("mx.DateTime implementation of ticks() : " + str(mxTicks))
+
+        return '{:.2f}'.format(ticks)
+
     
 
 class DateTime(datetime):
@@ -415,3 +429,53 @@ def TimeDelta(hours=0,minutes=0,seconds=0):
     print("dateutil implementation of TimeDelta() : " + str(time_delta) )
 
     return time_delta
+
+################################################################
+
+def mktime(tuple):
+    '''
+    makes time
+     tuple has to be a 9-tuple (year,month,day,hour,minute,second,dow,doy,dst).
+    '''
+
+    time = datetime(tuple)
+    print("datetime implementation of mktime() : " + str(time) )
+
+    return time
+
+
+
+def DateTimeFromString(date_string):
+    
+    from mx.DateTime.Parser import DateTimeFromString
+    mxDTfromStr = DateTimeFromString(date_string)
+    dtFromStr = datetime.strptime(date_string, '%Y-%m-%d %H:%M:%S.%f')
+    #TODO make this take other string formats as well
+
+    print ("datetime implementation of DateTimeFromString() : " + str(dtFromStr))
+    print ("mx.DateTime implementation of DateTimeFromString() : " + str(mxDTfromStr))
+
+    return dtFromStr
+
+
+def Time(hours=0, minutes=0, seconds=0 ):
+    '''
+    '''
+    tim_del = mx.DateTime.Time(hours=hours, minutes=minutes, seconds=seconds)
+    time_delta = relativedelta( hours=hours, minutes=minutes, seconds=seconds)
+
+    print("mx.DateTime implementation of Time() :  " + str(tim_del) )
+    print("dateutil implementation of Time() : " + str(time_delta) )
+
+    return time_delta
+
+
+def datetime_ticks(dt):
+     ticks_per_second = 10 ** 7  # Number of ticks in one second
+     delta = dt - datetime.datetime(1969,12, 31, 19,00,00)
+     ticks = delta.total_seconds() * ticks_per_second
+
+     print ("datetime implementation of DateTimeFromString() : " + str(dtFromStr))
+     print ("mx.DateTime implementation of DateTimeFromString() : " + str(mxDTfromStr))
+
+
