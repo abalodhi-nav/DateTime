@@ -140,6 +140,10 @@ class DateTime(datetime):
         
         return datetime_formatted
 
+######################
+#   more constants   #
+######################
+DateTimeType = type(datetime.now())
 
 ########################
 #      functions       #
@@ -154,13 +158,14 @@ def now():
         datetimeNow = current timestamp , object of class P3.mx.DateTime.datetime
      
     '''
-    datetimeNow = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-4]
+    dtobj = datetime.now()
+    datetimeNow = dtobj.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-4]
     datetimeNow = datetime.strptime(datetimeNow, '%Y-%m-%d %H:%M:%S.%f')
     
     print "datetime implementation of now() : " + str(datetimeNow)
     print "mx.DateTime implementation of now() : " + str(mx.DateTime.now())
     
-    return datetimeNow
+    return dtobj
 
 
 def today(): 
