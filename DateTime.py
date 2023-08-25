@@ -33,9 +33,9 @@ oneDay =  relativedelta(hours=24)  # one day = 24 hours
 #      Classes        #
 #######################
 
-class datetime(built_in_datetime):
+class osos_datetime(built_in_datetime):
     '''
-    CustomDateTime class that inherits from the built-in datetime.datetime class.
+    A custom datetime class that inherits from the built-in datetime.datetime class.
     '''
     def __init__(self, *args, **kwargs):
         '''
@@ -114,7 +114,7 @@ class datetime(built_in_datetime):
 
     
 
-class DateTime(datetime):
+class DateTime(osos_datetime):
     '''
     DateTime class for working with dates and times.
     '''
@@ -123,7 +123,7 @@ class DateTime(datetime):
         '''
         Constructor of DateTime using datetime
         '''
-        self.datetime = datetime(year, month, day, hour, minute, second, microsecond)
+        self.datetime = osos_datetime(year, month, day, hour, minute, second, microsecond)
         self.day_of_week = self.weekday()
         self.days_in_month = calendar.monthrange(self.year, self.month)[1]
 
@@ -143,7 +143,7 @@ class DateTime(datetime):
 ######################
 #   more constants   #
 ######################
-DateTimeType = type(datetime.now())
+DateTimeType = type(osos_datetime.now())
 
 ########################
 #      functions       #
@@ -158,9 +158,9 @@ def now():
         datetimeNow = current timestamp , object of class P3.mx.DateTime.datetime
      
     '''
-    dtobj = datetime.now()
+    dtobj = osos_datetime.now()
     datetimeNow = dtobj.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-4]
-    datetimeNow = datetime.strptime(datetimeNow, '%Y-%m-%d %H:%M:%S.%f')
+    datetimeNow = osos_datetime.strptime(datetimeNow, '%Y-%m-%d %H:%M:%S.%f')
     
     print "datetime implementation of now() : " + str(datetimeNow)
     print "mx.DateTime implementation of now() : " + str(mx.DateTime.now())
@@ -176,7 +176,7 @@ def today():
 
     '''
     datetimeToday = date.today()
-    dateToday = datetime(datetimeToday.year,datetimeToday.month,datetimeToday.day)    
+    dateToday = osos_datetime(datetimeToday.year,datetimeToday.month,datetimeToday.day)    
     
     print "datetime implementation of today() : " + str(dateToday)
     print "mx.DateTime implementation of today() : " + str(mx.DateTime.today())
@@ -197,7 +197,7 @@ def ParseDateTime(date_str):
     return type :
 
     '''
-    parsedDT = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+    parsedDT = osos_datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
     print 'datetime implementation of ParseDateTime() : ' + str(parsedDT)
     
     print 'mx.DateTime implementation of ParseDateTime() : '  + str(mx.DateTime.ISO.ParseDateTime(date_str))
@@ -218,7 +218,7 @@ def Date(year, month, day):
     '''
     date = DateTime(year, month, day)
     print "mx.DateTime implementation of constructor Date() : " + date.__str__()
-    print "datetime implementation is constructor Date() : " + str(datetime(year,month,day))
+    print "datetime implementation is constructor Date() : " + str(osos_datetime(year,month,day))
     return date
 
 
@@ -229,7 +229,7 @@ def Date(year, month, day):
 def strptime(datetime_string, format_string):
     '''
     '''
-    parsed_datetime = datetime.strptime(datetime_string, format_string)
+    parsed_datetime = osos_datetime.strptime(datetime_string, format_string)
     print("datetime implementation of strptime() : " + str(parsed_datetime))
     # print("time parsed as per mx.DateTime: " + str(mx.DateTime.strftime(mx.DateTime.strptime(datetime_string, format_string), format_string  ))
     return parsed_datetime
@@ -238,7 +238,7 @@ def strptime(datetime_string, format_string):
 def strftime(date_object, format_string='%c'):
     '''
     '''
-    datetime_formatted = datetime.strftime(date_object, format_string)
+    datetime_formatted = osos_datetime.strftime(date_object, format_string)
     # mx_datetime = mx.DateTime.DateTimeFromTicks(date_object)
     # mx_datetime_formatted = mx.DateTime.strftime(date_object, format_string)
 
@@ -275,7 +275,7 @@ def RelativeDateTime(years=0, months=0, weeks=0, days=0, hours=0, minutes=0, sec
 ##########################################
 
 
-def gmtime(date=datetime.utcnow(), tzone_offset_in_min=0):
+def gmtime(date=osos_datetime.utcnow(), tzone_offset_in_min=0):
     '''
     Custom gmtime() function that calculates the local time given a UTC datetime and timezone offset.
 
@@ -288,7 +288,7 @@ def gmtime(date=datetime.utcnow(), tzone_offset_in_min=0):
         datetime.datetime: The local datetime object based on the provided UTC datetime and timezone offset.
     '''
     
-    gm_datetime = date  + relativedelta(minutes=tzone_offset_in_min) 
+    gm_datetime = date + relativedelta(minutes=tzone_offset_in_min) 
     print("mx.DateTime implementation of gmtime() :  " + str(mx.DateTime.gmtime() + mx.DateTime.TimeDelta(minutes=tzone_offset_in_min)))
     print("datetime implementation of gmtime() : " + str(gm_datetime) )
 
@@ -296,7 +296,7 @@ def gmtime(date=datetime.utcnow(), tzone_offset_in_min=0):
 
 
 
-def localtime(local_datetime=datetime.now()):
+def localtime(local_datetime=osos_datetime.now()):
     '''
     Converts a given local datetime object or ticks to a modified local datetime object.
 
@@ -313,7 +313,7 @@ def localtime(local_datetime=datetime.now()):
 
     if isinstance(local_datetime, int):
         print("mx.DateTime implementation of localtime() :  " + str(mx.DateTime.localtime(local_datetime) ))
-        local_datetime = datetime(1969,12, 31, 19,00,00) + relativedelta(seconds=local_datetime)
+        local_datetime = osos_datetime(1969,12, 31, 19,00,00) + relativedelta(seconds=local_datetime)
     else:
         print("mx.DateTime implementation of localtime() :  " + str(mx.DateTime.localtime() )) #TODO put localtime here which returns datetime
 
@@ -327,12 +327,12 @@ def localtime(local_datetime=datetime.now()):
 #     dir(mx.DateTime) functions   #
 ####################################
 
-def DateFrom(local_datetime=datetime.now()):
+def DateFrom(local_datetime=osos_datetime.now()):
     '''
     '''
     if isinstance(local_datetime, int): # if ticks are given
         print("mx.DateTime implementation of DateFrom() :  " + str(mx.DateTime.DateFrom(local_datetime) ))
-        local_datetime = datetime(1969,12, 31, 19,00,00) + relativedelta(seconds=local_datetime)
+        local_datetime = osos_datetime(1969,12, 31, 19,00,00) + relativedelta(seconds=local_datetime)
     else:
         print("mx.DateTime implementation of DateFrom() :  " + str(mx.DateTime.DateFrom(local_datetime) ))
 
@@ -341,12 +341,12 @@ def DateFrom(local_datetime=datetime.now()):
     return local_datetime
 
 
-def DateTimeFrom(local_datetime=datetime.now()):
+def DateTimeFrom(local_datetime=osos_datetime.now()):
     '''
     '''
     if isinstance(local_datetime, int): # if ticks are given
         print("mx.DateTime implementation of DateTimeFrom() :  " + str(mx.DateTime.DateTimeFrom(local_datetime) ))
-        local_datetime = datetime(1969,12, 31, 19,00,00) + relativedelta(seconds=local_datetime)
+        local_datetime = osos_datetime(1969,12, 31, 19,00,00) + relativedelta(seconds=local_datetime)
     else:
         print("mx.DateTime implementation of DateTimeFrom() :  " + str(mx.DateTime.DateTimeFrom(local_datetime) ))
 
@@ -355,12 +355,12 @@ def DateTimeFrom(local_datetime=datetime.now()):
     return local_datetime
 
 
-def DateTimeFromTicks(local_datetime=datetime.now()):
+def DateTimeFromTicks(local_datetime=osos_datetime.now()):
     '''
     '''
     if isinstance(local_datetime, int): # if ticks are given
         print("mx.DateTime implementation of DateTimeFromTicks() :  " + str(mx.DateTime.DateTimeFromTicks(local_datetime) ))
-        local_datetime = datetime(1969,12, 31, 19,00,00) + relativedelta(seconds=local_datetime)
+        local_datetime = osos_datetime(1969,12, 31, 19,00,00) + relativedelta(seconds=local_datetime)
     else:
         print("mx.DateTime implementation of DateTimeFromTicks() :  " + str(mx.DateTime.DateTimeFromTicks() ))
 
@@ -442,9 +442,8 @@ def mktime(tuple):
     makes time
      tuple has to be a 9-tuple (year,month,day,hour,minute,second,dow,doy,dst).
     '''
-
-    time = datetime(tuple)
-    print("datetime implementation of mktime() : " + str(time) )
+    time = osos_datetime(time_obj.tm_year,time_obj.tm_mon,time_obj.tm_mday,time_obj.tm_hour,time_obj.tm_min,time_obj.tm_sec)
+    #print("datetime implementation of mktime() : " + str(time) )
 
     return time
 
@@ -454,7 +453,7 @@ def DateTimeFromString(date_string):
     
     from mx.DateTime.Parser import DateTimeFromString
     mxDTfromStr = DateTimeFromString(date_string)
-    dtFromStr = datetime.strptime(date_string, '%Y-%m-%d %H:%M:%S.%f')
+    dtFromStr = osos_datetime.strptime(date_string, '%Y-%m-%d %H:%M:%S.%f')
     #TODO make this take other string formats as well
 
     print ("datetime implementation of DateTimeFromString() : " + str(dtFromStr))
@@ -473,14 +472,5 @@ def Time(hours=0, minutes=0, seconds=0 ):
     print("dateutil implementation of Time() : " + str(time_delta) )
 
     return time_delta
-
-
-def datetime_ticks(dt):
-     ticks_per_second = 10 ** 7  # Number of ticks in one second
-     delta = dt - datetime.datetime(1969,12, 31, 19,00,00)
-     ticks = delta.total_seconds() * ticks_per_second
-
-     print ("datetime implementation of DateTimeFromString() : " + str(dtFromStr))
-     print ("mx.DateTime implementation of DateTimeFromString() : " + str(mxDTfromStr))
 
 
