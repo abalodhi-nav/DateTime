@@ -102,7 +102,7 @@ class osos_datetime(built_in_datetime):
         '''
         '''
         ticks_per_second = 1  # 10**3 Number of ticks in one second
-        delta = self - datetime(1969,12, 31, 00,00,00)
+        delta = self - osos_datetime(1969,12, 31, 00,00,00)
         ticks = delta.total_seconds() * ticks_per_second
 
         print ("datetime implementation of ticks() : " + str(ticks))

@@ -113,8 +113,8 @@ class CustomDateTimeTests(unittest.TestCase):
         absdate, abstime = dt.absvalues()
 
         # Assert that the absolute values are correct
-        #self.assertEqual(absdate, 738, "Incorrect absdate")
-        #self.assertEqual(abstime, 45000, "Incorrect abstime")
+        self.assertEqual(absdate, 738, "Incorrect absdate")
+        self.assertEqual(abstime, 45000, "Incorrect abstime")
 
     def test_ticks(self):
         # Create a CustomDateTime object
@@ -124,7 +124,7 @@ class CustomDateTimeTests(unittest.TestCase):
         ticks = dt.ticks()
 
         # Assert that the ticks value is correct
-        self.assertEqual(ticks, "1632607920.00")
+        self.assertEqual(ticks, "'1632607920.00")
 
 if __name__ == '__main__':
     unittest.main()
