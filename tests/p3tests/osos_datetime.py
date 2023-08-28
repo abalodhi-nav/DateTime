@@ -52,7 +52,9 @@ class osos_datetime(built_in_datetime):
         '''
         ###########################################
         '''
-        return self.strftime(format_string)
+        formatted = self.strftime(format_string)
+        print ("datetime implementation of Format : " + formatted) 
+        return formatted
 
     def absvalues(self):
         '''
