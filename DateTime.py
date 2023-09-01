@@ -47,7 +47,100 @@ class osos_datetime(built_in_datetime):
         self.day_of_week = self.weekday()
         self.days_in_month = calendar.monthrange(self.year, self.month)[1]
         self.oneDay =  relativedelta(hours=24)
+    
+    ##############################
+    # operator overloading funcs #    
+    ##############################
 
+    def __lt__(self, arg):
+        '''
+        Override the less than (<) operator .
+        #########################################
+        Args:
+            arg: The object to compare with.
+        ###########################################
+        Returns:
+            bool: True if the CustomDateTime object is less than the given object, False otherwise.
+        '''
+        if arg is None:
+            return False
+        return built_in_datetime.__lt__(self, arg)
+
+    def __le__(self, arg):
+        '''
+        Override the less than equals to (<=) operator .
+        #######################################
+        Args:
+            arg: The object to compare with.
+        #######################################
+        Returns:
+            bool: True if the CustomDateTime object is less than equal to the given object, False otherwise.
+        '''
+        if arg is None:
+            return False
+        return built_in_datetime.__le__(self, arg)
+
+    def __eq__(self, arg):
+        '''
+        Override the equals (==) operator .
+        ##########################################
+        Args:
+            arg: The object to compare with.
+        ##########################################
+        Returns:
+            bool: True if the CustomDateTime object is equal the given object, False otherwise.
+        '''
+        if arg is None:
+            return False
+        return built_in_datetime.__eq__(self, arg)
+
+    def __ne__(self, arg):
+        '''
+        Override the not equals (!=) operator .
+        ######################################
+        Args:
+            arg: The object to compare with.
+        ####################################
+        Returns:
+            bool: True if the CustomDateTime object is less than the given object, False otherwise.
+        '''
+        if arg is None:
+            return True
+        return built_in_datetime.__ne__(self, arg)
+
+    def __ge__(self, arg):
+        '''
+        Override the greater than equals to (>=) operator .
+        ######################################################
+        Args:
+            arg: The object to compare with.
+        ############################################
+        Returns:
+            bool: True if the CustomDateTime object is greater than equal to the given object, False otherwise.
+        '''
+        if arg is None:
+            return False
+        return built_in_datetime.__ge__(self, arg)
+
+    def __gt__(self, arg):
+        '''
+        Override the greater than (>) operator .
+        #########################################
+        Args:
+            arg: The object to compare with.
+        ####################################
+        Returns:
+            bool: True if the CustomDateTime object is greater than the given object, False otherwise.
+        '''
+        if arg is None:
+            return False
+        return built_in_datetime.__gt__(self, arg)
+
+    
+    
+    ###################################
+    #   functions not in built_in_dt  #
+    ###################################
     def rebuild(self, year=None, month=None, day=None, hour=None, minute=None, second=None, timezone=None):
         '''
         Rebuilds the datetime object with specified attributes.
