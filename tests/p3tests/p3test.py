@@ -213,21 +213,171 @@ class CustomDateTime(osos_datetime):
 
 
 class CustomDateTimeTests(unittest.TestCase):
-    def test_gt_operator_true(self):
+    #################
+    #  <= operator  #
+    #################
+
+    def test_le_operator_with_none(self):
+        # Create a CustomDateTime object
+        custom_dt = CustomDateTime(2023, 9, 1, 7, 37, 11, 900000)
+
+        # Test the <= operator with None
+        result = custom_dt <= None
+
+        # Assert that the result is False
+        self.assertFalse(result)
+
+    def test_le_operator_true(self):
+        # Create a CustomDateTime object
+        custom_dt = CustomDateTime(2023, 9, 1, 7, 37, 11, 900000)
+
+        # Create a regular datetime object
+        regular_dt = datetime.datetime(2023, 9, 1, 7, 39, 4, 871195)
+
+        # Test the <= operator with a regular datetime object
+        result = custom_dt <= regular_dt
+
+        # Assert that the result is True
+        self.assertTrue(result)
+
+    def test_le_operator_false(self):
+        # Create a CustomDateTime object
         custom_dt = CustomDateTime(2023, 9, 1, 7, 39, 4, 871195)
+
+        # Create a regular datetime object
         regular_dt = datetime.datetime(2023, 9, 1, 7, 37, 11, 900000)
+
+        # Test the <= operator with a regular datetime object
+        result = custom_dt <= regular_dt
+
+        # Assert that the result is False
+        self.assertFalse(result)
+
+    ################
+    #  = operator  #
+    ################
+
+    def test_eq_operator_true(self):
+        # Create a CustomDateTime object
+        custom_dt = CustomDateTime(2023, 9, 1, 7, 37, 11, 900000)
+
+        # Create a regular datetime object with the same date and time
+        regular_dt = datetime.datetime(2023, 9, 1, 7, 37, 11, 900000)
+
+        # Test the == operator with a regular datetime object
+        result = custom_dt == regular_dt
+
+        # Assert that the result is True
+        self.assertTrue(result)
+
+    def test_eq_operator_false(self):
+        # Create a CustomDateTime object
+        custom_dt = CustomDateTime(2023, 9, 1, 7, 37, 11, 900000)
+
+        # Create a regular datetime object with a different date and time
+        regular_dt = datetime.datetime(2023, 9, 1, 7, 39, 4, 871195)
+
+        # Test the == operator with a regular datetime object
+        result = custom_dt == regular_dt
+
+        # Assert that the result is False
+        self.assertFalse(result)
+
+    #################
+    #  != operator  #
+    #################
+
+    def test_ne_operator_true(self):
+        # Create a CustomDateTime object
+        custom_dt = CustomDateTime(2023, 9, 1, 7, 37, 11, 900000)
+
+        # Create a regular datetime object with a different date and time
+        regular_dt = datetime.datetime(2023, 9, 1, 7, 39, 4, 871195)
+
+        # Test the != operator with a regular datetime object
+        result = custom_dt != regular_dt
+
+        # Assert that the result is True
+        self.assertTrue(result)
+
+    def test_ne_operator_false(self):
+        # Create a CustomDateTime object
+        custom_dt = CustomDateTime(2023, 9, 1, 7, 37, 11, 900000)
+
+        # Create a regular datetime object with the same date and time
+        regular_dt = datetime.datetime(2023, 9, 1, 7, 37, 11, 900000)
+
+        # Test the != operator with a regular datetime object
+        result = custom_dt != regular_dt
+
+        # Assert that the result is False
+        self.assertFalse(result)
+
+    #################
+    #  >= operator  #
+    #################
+
+
+    def test_ge_operator_true(self):
+        # Create a CustomDateTime object
+        custom_dt = CustomDateTime(2023, 9, 1, 7, 39, 4, 871195)
+
+        # Create a regular datetime object representing an earlier date and time
+        regular_dt = datetime.datetime(2023, 9, 1, 7, 37, 11, 900000)
+
+        # Test the >= operator with a regular datetime object
+        result = custom_dt >= regular_dt
+
+        # Assert that the result is True
+        self.assertTrue(result)
+
+    def test_ge_operator_false(self):
+        # Create a CustomDateTime object
+        custom_dt = CustomDateTime(2023, 9, 1, 7, 37, 11, 900)
+
+
+        # Create a regular datetime object representing an earlier date and time
+        regular_dt = datetime.datetime(2023, 9, 1, 7, 37, 11, 990)
+
+        # Test the >= operator with a regular datetime object
+        result = custom_dt >= regular_dt
+
+        # Assert that the result is False
+        self.assertFalse(result)
+
+
+    ################
+    #  > operator  #
+    ################
+
+    def test_gt_operator_true(self):
+        # Create a CustomDateTime object
+        custom_dt = CustomDateTime(2023, 9, 1, 7, 39, 4, 871195)
+
+        # Create a regular datetime object representing an earlier date and time
+        regular_dt = datetime.datetime(2023, 9, 1, 7, 37, 11, 900000)
+
+        # Test the > operator with a regular datetime object
         result = custom_dt > regular_dt
+
+        # Assert that the result is True
         self.assertTrue(result)
 
     def test_gt_operator_false(self):
+        # Create a CustomDateTime object
         custom_dt = CustomDateTime(2023, 9, 1, 7, 37, 11, 900000)
+
+        # Create a regular datetime object representing a later date and time
         regular_dt = datetime.datetime(2023, 9, 1, 7, 39, 4, 871195)
+
+        # Test the > operator with a regular datetime object
         result = custom_dt > regular_dt
-        self.assertFalse(result)
+
+        # Assert that the result is False
+        self.assertFalse(result)               
+
 
 if __name__ == '__main__':
     unittest.main()
 
 
-if __name__ == '__main__':
-    unittest.main()
