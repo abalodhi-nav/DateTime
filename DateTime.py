@@ -8,8 +8,8 @@ from datetime import date
 import mx.DateTime
 from dateutil.relativedelta import relativedelta
 import calendar
-import time
-import copy
+#import time
+#import copy
 
 ######################
 # Utility functions  #
@@ -210,6 +210,10 @@ class osos_datetime(built_in_datetime):
 class DateTime(osos_datetime):
     '''
     DateTime class for working with dates and times.
+    #####################################################
+    PyCharm
+    NOTE : Call to __init__ of super class is missed
+
     '''
 
     def __init__ (self, year, month, day, hour=0, minute=0, second=0, microsecond=0 ):
@@ -255,8 +259,8 @@ def now():
     datetimeNow = dtobj.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-4]
     datetimeNow = osos_datetime.strptime(datetimeNow, '%Y-%m-%d %H:%M:%S.%f')
     
-    print "datetime implementation of now() : " + str(datetimeNow)
-    print "mx.DateTime implementation of now() : " + str(mx.DateTime.now())
+    print("datetime implementation of now() : " + str(datetimeNow))
+    print ( "mx.DateTime implementation of now() : " + str(mx.DateTime.now())
     
     return dtobj
 
@@ -271,8 +275,8 @@ def today():
     datetimeToday = date.today()
     dateToday = osos_datetime(datetimeToday.year,datetimeToday.month,datetimeToday.day)    
     
-    print "datetime implementation of today() : " + str(dateToday)
-    print "mx.DateTime implementation of today() : " + str(mx.DateTime.today())
+    print("datetime implementation of today() : " + str(dateToday))
+    print ( "mx.DateTime implementation of today() : " + str(mx.DateTime.today()))
     
     return dateToday
 
@@ -291,9 +295,9 @@ def ParseDateTime(date_str):
 
     '''
     parsedDT = osos_datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
-    print 'datetime implementation of ParseDateTime() : ' + str(parsedDT)
+    print('datetime implementation of ParseDateTime() : ' + str(parsedDT))
     
-    print 'mx.DateTime implementation of ParseDateTime() : '  + str(mx.DateTime.ISO.ParseDateTime(date_str))
+    print ( 'mx.DateTime implementation of ParseDateTime() : '  + str(mx.DateTime.ISO.ParseDateTime(date_str)))
 
     return parsedDT
 
@@ -310,8 +314,8 @@ def Date(year, month, day):
         DateTime
     '''
     date = DateTime(year, month, day)
-    print "mx.DateTime implementation of constructor Date() : " + date.__str__()
-    print "datetime implementation is constructor Date() : " + str(osos_datetime(year,month,day))
+    print ( "mx.DateTime implementation of constructor Date() : " + date.__str__())
+    print("datetime implementation is constructor Date() : " + str(osos_datetime(year,month,day)))
     return date
 
 
@@ -357,7 +361,7 @@ def RelativeDateTime(years=0, months=0, weeks=0, days=0, hours=0, minutes=0, sec
     var_str = var.strftime("%Y-%m-%d %H:%M:%S")
     var2_str = var2.strftime("%Y-%m-%d %H:%M:%S")
 
-    print("mx.DateTime implementation of RelativeDateTime() :  " + var_str)
+    print ( "mx.DateTime implementation of RelativeDateTime() :  " + var_str)
     print("dateutil implementation of RelativeDateTime() : " + var2_str)
 
     return delta
@@ -382,7 +386,7 @@ def gmtime(date=osos_datetime.utcnow(), tzone_offset_in_min=0):
     '''
     
     gm_datetime = date + relativedelta(minutes=tzone_offset_in_min) 
-    print("mx.DateTime implementation of gmtime() :  " + str(mx.DateTime.gmtime() + mx.DateTime.TimeDelta(minutes=tzone_offset_in_min)))
+    print ( "mx.DateTime implementation of gmtime() :  " + str(mx.DateTime.gmtime() + mx.DateTime.TimeDelta(minutes=tzone_offset_in_min)))
     print("datetime implementation of gmtime() : " + str(gm_datetime) )
 
     return gm_datetime
