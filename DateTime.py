@@ -182,7 +182,7 @@ class osos_datetime(built_in_datetime):
         ###########################################
         '''
         now = self
-        day_one = datetime(1, 1, 1) # January 1, 0001
+        day_one = built_in_datetime(1, 1, 1) # January 1, 0001
         absdate = (now - day_one).days + 1 
         abstime = (now - now.replace(hour=0, minute=0, second=0, microsecond=0)).total_seconds()
         
@@ -530,7 +530,7 @@ def TimeDelta(hours=0,minutes=0,seconds=0):
 
 ################################################################
 
-def mktime(tuple):
+def mktime(time_obj):
     '''
     makes time
      tuple has to be a 9-tuple (year,month,day,hour,minute,second,dow,doy,dst).
