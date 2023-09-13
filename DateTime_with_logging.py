@@ -11,7 +11,7 @@ import calendar
 import time
 import copy
 from global_vars import LOG_PATH
-from logprint import *
+#from logprint import *
 
 
 ######################
@@ -39,7 +39,7 @@ class osos_datetime(built_in_datetime):
     '''
     A custom datetime class that inherits from the built-in datetime.datetime class.
     '''
-
+    
     def __init__(self, *args, **kwargs):
         '''
         Constructor override to add required attributes
@@ -159,14 +159,21 @@ class osos_datetime(built_in_datetime):
         returns:
             CustomDateTime: The rebuilt datetime object
         '''
-        current_date = self
-        year = current_date.year if year is None else int(year)
-        month = current_date.month if month is None else int(month)
-        day = current_date.day if day is None else int(day)
-        # TODO : this doesn't take hour, minute, second yet
-        replaced = current_date.replace(year=year, month=month, day=day)
+        try :
+            current_date = self
+            year = current_date.year if year is None else int(year)
+            month = current_date.month if month is None else int(month)
+            day = current_date.day if day is None else int(day)
+            # TODO : this doesn't take hour, minute, second yet
+            replaced = current_date.replace(year=year, month=month, day=day)
 
-        print("datetime implementation of rebuild() : " + str(replaced))
+        except Exception, e:
+            mx_log_msg("METHOD: osos_datetime.rebuild()|"+str(year)+"|"+str(month)+"|"+str(day)+"|"+str(hour)+"|"+str(minute)+"|"+str(second)+"|"+str(timezone))
+            mx_log_msg("PID: "+str(os.getpid()))
+            mx_log_msg("FAILED: " +str(e))
+            raise e
+        else:
+            mx_log_msg("METHOD osos_datetime.rebuild()|"+str(year)+"|"+str(month)+"|"+str(day)+"|"+str(hour)+"|"+str(minute)+"|"+str(second)+"|"+str(timezone)+ " PID: "+str(os.getpid())+"\n")
 
         return replaced
 
@@ -180,23 +187,37 @@ class osos_datetime(built_in_datetime):
         '''
         ###########################################
         '''
-        now = self
-        day_one = built_in_datetime(1, 1, 1)  # January 1, 0001
-        absdate = (now - day_one).days + 1
-        abstime = (now - now.replace(hour=0, minute=0, second=0, microsecond=0)).total_seconds()
+        try :
+            now = self
+            day_one = built_in_datetime(1, 1, 1)  # January 1, 0001
+            absdate = (now - day_one).days + 1
+            abstime = (now - now.replace(hour=0, minute=0, second=0, microsecond=0)).total_seconds()
 
-        print("datetime implementation of absvalues() : (" + str(absdate) + " , " + str(abstime) + ")")
+        except Exception, e:
+            mx_log_msg("METHOD: osos_datetime.absvalues()|"+str(self))
+            mx_log_msg("PID: "+str(os.getpid()))
+            mx_log_msg("FAILED: " +str(e))
+            raise e
+        else:
+            mx_log_msg("METHOD osos_datetime.absvalues()|"+str(self)+ " PID: "+str(os.getpid())+"\n")
 
         return (absdate, abstime)
 
     def ticks(self):
         '''
         '''
-        ticks_per_second = 1  # 10**3 Number of ticks in one second
-        delta = self - osos_datetime(1969, 12, 31, 00, 00, 00)
-        ticks = delta.total_seconds() * ticks_per_second
+        try :
+            ticks_per_second = 1  # 10**3 Number of ticks in one second
+            delta = self - osos_datetime(1969, 12, 31, 00, 00, 00)
+            ticks = delta.total_seconds() * ticks_per_second
 
-        print("datetime implementation of ticks() : " + str(ticks))
+        except Exception, e:
+            mx_log_msg("METHOD: osos_datetime.ticks()|"+str(self))
+            mx_log_msg("PID: "+str(os.getpid()))
+            mx_log_msg("FAILED: " +str(e))
+            raise e
+        else:
+            mx_log_msg("METHOD osos_datetime.ticks()|"+str(self)+ " PID: "+str(os.getpid())+"\n")
 
         return '{:.2f}'.format(ticks)
 
@@ -217,12 +238,19 @@ class DateTime(osos_datetime):
     def strftime(self, format_string):
         '''
         '''
-        datetime_formatted = self.datetime.strftime(format_string)
+        try :
+            datetime_formatted = self.datetime.strftime(format_string)
 
-        # AttributeError: 'module' object has no attribute 'strftime'
+            # AttributeError: 'module' object has no attribute 'strftime'
 
-        print("Formatted datetime (using datetime module): " + str(datetime_formatted))
-
+        except Exception, e:
+            mx_log_msg("METHOD: DateTime.strftime()|"+str(self)+"|"+format_string)
+            mx_log_msg("PID: "+str(os.getpid()))
+            mx_log_msg("FAILED: " +str(e))
+            raise e
+        else:
+            mx_log_msg("METHOD DateTime.strftime()|"+str(self)+"|"+format_string+ " PID: "+str(os.getpid())+"\n")
+        
         return datetime_formatted
 
 
@@ -251,11 +279,13 @@ def now():
         datetimeNow = osos_datetime.strptime(datetimeNow, '%Y-%m-%d %H:%M:%S.%f')
     except Exception, e:
         mx_log_msg("METHOD: now()")
-        mx_log_msg("PID: " + str(os.getpid()))
-        mx_log_msg("FAILED: " + str(e) + "\n")
+        mx_log_msg("PID: "+str(os.getpid()))
+        mx_log_msg("FAILED: " +str(e) +"\n")
         raise e
+        
     else:
-        mx_log_msg("METHOD now()+ PID: " + str(os.getpid()) + "\n")
+        mx_log_msg("METHOD now()+ PID: "+str(os.getpid())+"\n")
+
 
     return dtobj
 
@@ -272,11 +302,11 @@ def today():
         dateToday = osos_datetime(datetimeToday.year, datetimeToday.month, datetimeToday.day)
     except Exception, e:
         mx_log_msg("METHOD: today()")
-        mx_log_msg("PID: " + str(os.getpid()))
-        mx_log_msg("FAILED: " + str(e) + "\n")
+        mx_log_msg("PID: "+str(os.getpid()))
+        mx_log_msg("FAILED: " +str(e) +"\n")
         raise e
     else:
-        mx_log_msg("METHOD today() PID: " + str(os.getpid()) + "\n")
+        mx_log_msg("METHOD today() PID: "+str(os.getpid())+"\n")
 
     return dateToday
 
@@ -284,7 +314,7 @@ def today():
 def ParseDateTime(date_str):
     '''
     the ParseDateTime function of mx.DateTime
-    NOTE : THis is used in files :
+    NOTE : THis is used in files 
     aosos\custom\ajb\osos\server_agent\Resume.py
     aosos\custom\ajb\osos\server_agent\Job.py
 
@@ -294,10 +324,17 @@ def ParseDateTime(date_str):
     return type :
 
     '''
-    parsedDT = osos_datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
-    print
-    'datetime implementation of ParseDateTime() : ' + str(parsedDT)
-
+    try :
+        parsedDT = osos_datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+        
+    except Exception, e:
+        mx_log_msg("METHOD: ParseDateTime()|" + date_str)
+        mx_log_msg("PID: " + str(os.getpid()) )
+        mx_log_msg("FAILED: " +str(e) +"\n")
+        raise e
+    else:
+        mx_log_msg("METHOD ParseDateTime()|" + date_str + " PID: "+str(os.getpid())+"\n")
+        
     return parsedDT
 
 
@@ -315,13 +352,12 @@ def Date(year, month, day):
     try:
         date = DateTime(year, month, day)
     except Exception, e:
-        mx_log_msg("METHOD: Date()|" + str(year) + "|" + str(month) + "|" + str(day))
-        mx_log_msg("PID: " + str(os.getpid()))
-        mx_log_msg("FAILED: " + str(e))
+        mx_log_msg("METHOD: Date()|"+str(year)+"|"+str(month)+"|"+str(day))
+        mx_log_msg("PID: "+str(os.getpid()))
+        mx_log_msg("FAILED: " +str(e))
         raise e
     else:
-        mx_log_msg(
-            "METHOD Date()|" + str(year) + "|" + str(month) + "|" + str(day) + " PID: " + str(os.getpid()) + "\n")
+        mx_log_msg("METHOD Date()|"+str(year)+"|"+str(month)+"|"+str(day)+ " PID: "+str(os.getpid())+"\n")
     return date
 
 
@@ -332,18 +368,33 @@ def Date(year, month, day):
 def strptime(datetime_string, format_string):
     '''
     '''
-    parsed_datetime = osos_datetime.strptime(datetime_string, format_string)
-    print("datetime implementation of strptime() : " + str(parsed_datetime))
+    try :
+        parsed_datetime = osos_datetime.strptime(datetime_string, format_string)
+    except Exception, e:
+        mx_log_msg("METHOD: strptime()|"+datetime_string+"|"+format_string)
+        mx_log_msg("PID: "+str(os.getpid()))
+        mx_log_msg("FAILED: " +str(e))
+        raise e
+    else:
+        mx_log_msg("METHOD strptime()|"+datetime_string+"|"+format_string+ " PID: "+str(os.getpid())+"\n")
+    
     return parsed_datetime
 
 
 def strftime(date_object, format_string='%c'):
     '''
     '''
-    datetime_formatted = osos_datetime.strftime(date_object, format_string)
-
-    print("datetime implementation of strftime() : " + str(datetime_formatted))
-
+    try :
+        datetime_formatted = osos_datetime.strftime(date_object, format_string)
+        
+    except Exception, e:
+        mx_log_msg("METHOD: strftime()|"+str(date_object)+"|"+format_string)
+        mx_log_msg("PID: "+str(os.getpid()))
+        mx_log_msg("FAILED: " +str(e))
+        raise e
+    else:
+        mx_log_msg("METHOD strftime()|"+str(date_object)+"|"+format_string+ " PID: "+str(os.getpid())+"\n")
+    
     return datetime_formatted
 
 
@@ -356,18 +407,14 @@ def RelativeDateTime(years=0, months=0, weeks=0, days=0, hours=0, minutes=0, sec
     '''
     try:
         delta = relativedelta(years=years, months=months, weeks=weeks, days=days, hours=hours, minutes=minutes,
-                              seconds=seconds, microseconds=0)
+                          seconds=seconds, microseconds=0)
     except Exception, e:
-        mx_log_msg("METHOD: RelativeDateTime()|" + str(years) + "|" + str(months) + "|" + str(weeks) + "|" + str(
-            days) + "|" + str(hours) + "|" + str(minutes) + "|" + str(seconds) + " PID: " + str(
-            os.getpid()) + " " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"))
-        mx_log_msg("FAILED: " + str(e) + "\n")
+        mx_log_msg("METHOD: RelativeDateTime()|"+str(years)+"|"+str(months)+"|"+str(weeks)+"|"+str(days)+"|"+str(hours)+"|"+str(minutes)+"|"+str(seconds)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"))
+        mx_log_msg("FAILED: " +str(e)+"\n")
         raise e
     else:
-        mx_log_msg("METHOD: RelativeDateTime()|" + str(years) + "|" + str(months) + "|" + str(weeks) + "|" + str(
-            days) + "|" + str(hours) + "|" + str(minutes) + "|" + str(seconds) + " PID: " + str(
-            os.getpid()) + " " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S" + "\n"))
-
+        mx_log_msg("METHOD: RelativeDateTime()|"+str(years)+"|"+str(months)+"|"+str(weeks)+"|"+str(days)+"|"+str(hours)+"|"+str(minutes)+"|"+str(seconds)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"+"\n"))
+    
     return delta
 
 
@@ -389,9 +436,15 @@ def gmtime(date=osos_datetime.utcnow(), tzone_offset_in_min=0):
         datetime.datetime: The local datetime object based on the provided UTC datetime and timezone offset.
     '''
 
-    gm_datetime = date + relativedelta(minutes=tzone_offset_in_min)
-    print("datetime implementation of gmtime() : " + str(gm_datetime))
-
+    try:
+        gm_datetime = date + relativedelta(minutes=tzone_offset_in_min)
+    except Exception, e:
+        mx_log_msg("METHOD: gmtime()|"+str(date)+"|"+str(tzone_offset_in_min)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"))
+        mx_log_msg("FAILED: " +str(e)+"\n")
+        raise e
+    else:
+        mx_log_msg("METHOD: gmtime()|"+str(date)+"|"+str(tzone_offset_in_min)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"+"\n"))
+    
     return gm_datetime
 
 
@@ -409,11 +462,16 @@ def localtime(local_datetime=osos_datetime.now()):
         datetime.datetime: The modified local datetime object.
 
     '''
+    try:
+        if isinstance(local_datetime, int):
+            local_datetime = osos_datetime(1969, 12, 31, 19, 00, 00) + relativedelta(seconds=local_datetime)
+    except Exception, e:
+        mx_log_msg("METHOD: localtime()|"+str(local_datetime)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"))
+        mx_log_msg("FAILED: " +str(e)+"\n")
+        raise e
+    else:
+        mx_log_msg("METHOD: localtime()|"+str(local_datetime)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"+"\n"))
 
-    if isinstance(local_datetime, int):
-        local_datetime = osos_datetime(1969, 12, 31, 19, 00, 00) + relativedelta(seconds=local_datetime)
-
-    print("datetime implementation of localtime() : " + str(local_datetime))
 
     return local_datetime
 
@@ -425,10 +483,15 @@ def localtime(local_datetime=osos_datetime.now()):
 def DateFrom(local_datetime=osos_datetime.now()):
     '''
     '''
-    if isinstance(local_datetime, int):  # if ticks are given
-        local_datetime = osos_datetime(1969, 12, 31, 19, 00, 00) + relativedelta(seconds=local_datetime)
-
-    print("datetime implementation of DateFrom() : " + str(local_datetime))
+    try:
+        if isinstance(local_datetime, int):  # if ticks are given
+            local_datetime = osos_datetime(1969, 12, 31, 19, 00, 00) + relativedelta(seconds=local_datetime)
+    except Exception, e:
+        mx_log_msg("METHOD: DateFrom()|"+str(local_datetime)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"))
+        mx_log_msg("FAILED: " +str(e)+"\n")
+        raise e
+    else:
+        mx_log_msg("METHOD: DateFrom()|"+str(local_datetime)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"+"\n"))
 
     return local_datetime
 
@@ -436,10 +499,16 @@ def DateFrom(local_datetime=osos_datetime.now()):
 def DateTimeFrom(local_datetime=osos_datetime.now()):
     '''
     '''
-    if isinstance(local_datetime, int):  # if ticks are given
-        local_datetime = osos_datetime(1969, 12, 31, 19, 00, 00) + relativedelta(seconds=local_datetime)
-
-    print("datetime implementation of DateTimeFrom() : " + str(local_datetime))
+    try :
+        if isinstance(local_datetime, int):  # if ticks are given
+            local_datetime = osos_datetime(1969, 12, 31, 19, 00, 00) + relativedelta(seconds=local_datetime)
+    
+    except Exception, e:
+        mx_log_msg("METHOD: DateTimeFrom()|"+str(local_datetime)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"))
+        mx_log_msg("FAILED: " +str(e)+"\n")
+        raise e
+    else:
+        mx_log_msg("METHOD: DateTimeFrom()|"+str(local_datetime)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"+"\n"))
 
     return local_datetime
 
@@ -447,10 +516,16 @@ def DateTimeFrom(local_datetime=osos_datetime.now()):
 def DateTimeFromTicks(local_datetime=osos_datetime.now()):
     '''
     '''
-    if isinstance(local_datetime, int):  # if ticks are given
-        local_datetime = osos_datetime(1969, 12, 31, 19, 00, 00) + relativedelta(seconds=local_datetime)
-
-    print("datetime implementation of DateTimeFromTicks() : " + str(local_datetime))
+    try :
+        if isinstance(local_datetime, int):  # if ticks are given
+            local_datetime = osos_datetime(1969, 12, 31, 19, 00, 00) + relativedelta(seconds=local_datetime)
+    
+    except Exception, e:
+        mx_log_msg("METHOD: DateTimeFromTicks()|"+str(local_datetime)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"))
+        mx_log_msg("FAILED: " +str(e)+"\n")
+        raise e
+    else:
+        mx_log_msg("METHOD: DateTimeFromTicks()|"+str(local_datetime)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"+"\n"))
 
     return local_datetime
 
@@ -462,15 +537,19 @@ def DateTimeFromTicks(local_datetime=osos_datetime.now()):
 def RelativeDate(years=0, months=0, weeks=0, days=0, hours=0, minutes=0, seconds=0):
     '''
     '''
+    try :
+        delta = relativedelta(years=years, months=months, weeks=weeks, days=days, hours=hours, minutes=minutes,
+                              seconds=seconds, microseconds=0)
+        var2 = built_in_datetime.now() + delta
+        var2_str = var2.strftime("%Y-%m-%d %H:%M:%S")
+    
+    except Exception, e:
+        mx_log_msg("METHOD: RelativeDate()|"+str(years)+"|"+str(months)+"|"+str(weeks)+"|"+str(days)+"|"+str(hours)+"|"+str(minutes)+"|"+str(seconds)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"))
+        mx_log_msg("FAILED: " +str(e)+"\n")
+        raise e
+    else:
+        mx_log_msg("METHOD: RelativeDate()|"+str(years)+"|"+str(months)+"|"+str(weeks)+"|"+str(days)+"|"+str(hours)+"|"+str(minutes)+"|"+str(seconds)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"+"\n"))
 
-    delta = relativedelta(years=years, months=months, weeks=weeks, days=days, hours=hours, minutes=minutes,
-                          seconds=seconds, microseconds=0)
-
-    var2 = built_in_datetime.now() + delta
-
-    var2_str = var2.strftime("%Y-%m-%d %H:%M:%S")
-
-    print("dateutil implementation of RelativeDate() : " + var2_str)
 
     return delta
 
@@ -478,29 +557,41 @@ def RelativeDate(years=0, months=0, weeks=0, days=0, hours=0, minutes=0, seconds
 def RelativeDateTimeDiff(date1=None, date2=None):
     '''
     '''
-    # Check if both dates are provided
-    if date1 is None or date2 is None:
-        raise ValueError("Both date1 and date2 must be provided.")
+    try :
+        # Check if both dates are provided
+        if date1 is None or date2 is None:
+            raise ValueError("Both date1 and date2 must be provided.")
 
-    # Calculate the difference between the two dates
-    rel_del = relativedelta(date1, date2)
+        # Calculate the difference between the two dates
+        rel_del = relativedelta(date1, date2)
 
-    print("dateutil implementation of RelativeDateTimeDiff() : " + str(rel_del))
-
+    except Exception, e:
+        mx_log_msg("METHOD: RelativeDateTimeDiff()|"+str(date1)+"|"+str(date2)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"))
+        mx_log_msg("FAILED: " +str(e)+"\n")
+        raise e
+    else:
+        mx_log_msg("METHOD: RelativeDateTimeDiff()|"+str(date1)+"|"+str(date2)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"+"\n"))
+    
     return rel_del
 
 
 def RelativeDateDiff(date1=None, date2=None):
     '''
     '''
-    # Check if both dates are provided
-    if date1 is None or date2 is None:
-        raise ValueError("Both date1 and date2 must be provided.")
+    try :
+        # Check if both dates are provided
+        if date1 is None or date2 is None:
+            raise ValueError("Both date1 and date2 must be provided.")
 
-    # Calculate the difference between the two dates
-    rel_del = relativedelta(date1, date2)
+        # Calculate the difference between the two dates
+        rel_del = relativedelta(date1, date2)
 
-    print("dateutil implementation of RelativeDateDiff() : " + str(rel_del))
+    except Exception, e:
+        mx_log_msg("METHOD: RelativeDateDiff()|"+str(date1)+"|"+str(date2)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"))
+        mx_log_msg("FAILED: " +str(e)+"\n")
+        raise e
+    else:
+        mx_log_msg("METHOD: RelativeDateDiff()|"+str(date1)+"|"+str(date2)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"+"\n"))
 
     return rel_del
 
@@ -508,9 +599,15 @@ def RelativeDateDiff(date1=None, date2=None):
 def TimeDelta(hours=0, minutes=0, seconds=0):
     '''
     '''
-    time_delta = relativedelta(hours=hours, minutes=minutes, seconds=seconds)
+    try :
+        time_delta = relativedelta(hours=hours, minutes=minutes, seconds=seconds)
 
-    print("dateutil implementation of TimeDelta() : " + str(time_delta))
+    except Exception, e:
+        mx_log_msg("METHOD: TimeDelta()|"+str(hours)+"|"+str(minutes)+"|"+str(seconds)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"))
+        mx_log_msg("FAILED: " +str(e)+"\n")
+        raise e
+    else:
+        mx_log_msg("METHOD: TimeDelta()|"+str(hours)+"|"+str(minutes)+"|"+str(seconds)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"+"\n"))
 
     return time_delta
 
@@ -522,17 +619,29 @@ def mktime(time_obj):
     makes time
      tuple has to be a 9-tuple (year,month,day,hour,minute,second,dow,doy,dst).
     '''
-    time = osos_datetime(time_obj.tm_year, time_obj.tm_mon, time_obj.tm_mday, time_obj.tm_hour, time_obj.tm_min,
+    try :
+        time = osos_datetime(time_obj.tm_year, time_obj.tm_mon, time_obj.tm_mday, time_obj.tm_hour, time_obj.tm_min,
                          time_obj.tm_sec)
-    # print("datetime implementation of mktime() : " + str(time) )
+    except Exception, e:
+        mx_log_msg("METHOD: mktime()|"+str(time_obj)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"))
+        mx_log_msg("FAILED: " +str(e)+"\n")
+        raise e
+    else:
+        mx_log_msg("METHOD: mktime()|"+str(time_obj)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"+"\n"))
 
     return time
 
 
 def DateTimeFromString(date_string):
-    dtFromStr = osos_datetime.strptime(date_string, '%Y-%m-%d %H:%M:%S.%f')
-
-    print("datetime implementation of DateTimeFromString() : " + str(dtFromStr))
+    try:
+        dtFromStr = osos_datetime.strptime(date_string, '%Y-%m-%d %H:%M:%S.%f')
+   
+    except Exception, e:
+        mx_log_msg("METHOD: DateTimeFromString()|"+date_string+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"))
+        mx_log_msg("FAILED: " +str(e)+"\n")
+        raise e
+    else:
+        mx_log_msg("METHOD: DateTimeFromString()|"+date_string+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"+"\n"))
 
     return dtFromStr
 
@@ -540,25 +649,36 @@ def DateTimeFromString(date_string):
 def Time(hours=0, minutes=0, seconds=0):
     '''
     '''
-    time_delta = relativedelta(hours=hours, minutes=minutes, seconds=seconds)
+    try :
+        time_delta = relativedelta(hours=hours, minutes=minutes, seconds=seconds)
 
-    print("dateutil implementation of Time() : " + str(time_delta))
+    except Exception, e:
+        mx_log_msg("METHOD: Time()|"+str(hours)+"|"+str(minutes)+"|"+str(seconds)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"))
+        mx_log_msg("FAILED: " +str(e)+"\n")
+        raise e
+    else:
+        mx_log_msg("METHOD: Time()|"+str(hours)+"|"+str(minutes)+"|"+str(seconds)+" PID: "+str(os.getpid())+" " + built_in_datetime.now().strftime("%d.%b %Y %H:%M:%S"+"\n"))
 
     return time_delta
 
 
+############################
+#     Logging functions    #
+############################
+
 def mx_log_msg(msg):
+
     try:
-        mx_log_filename = os.path.join('/home/abalodhi/src/', 'mx.log')
+        mx_log_filename = os.path.join(LOG_PATH, 'mx.log')
         mx_logfile = open(mx_log_filename, 'a+')
     except IOError, e:
-        logprint('Error opening the logfile: %s:%s\n' % (mx_log_filename, str(e)))
+        #logprint('Error opening the logfile: %s:%s\n' % (mx_log_filename, str(e)))
         exit()
     try:
         mx_logfile.write('%s \n' % (msg))
         mx_logfile.flush()
     except IOError, e:
-        logprint('Error occurred writing to logfile: %s : %s' % (mx_log_filename, str(e)))
+        #logprint('Error occurred writing to logfile: %s : %s' % (mx_log_filename, str(e)))
         exit(mx_logfile)
     mx_logfile.close()
 
