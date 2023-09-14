@@ -45,10 +45,10 @@ class CustomDateTime(built_in_datetime):
         minute = current_date.minute if minute is None else int(minute)
         second = current_date.second if second is None else int(second)
 
-        replaced = current_date.replace(year=year, month=month, day=day, hour=hour, minute=minute)
+        replaced = current_date.replace(year=year, month=month, day=day, hour=hour, minute=minute, second=second)
 
         print ("datetime implementation of rebuild() : " + str(replaced) )
-        print ("mx.DateTime implementation of rebuild() : " + str(mx.DateTime.now().rebuild(year=year, month=month, day=day) ))
+        print ("mx.DateTime implementation of rebuild() : " + str(mx.DateTime.now().rebuild(year=year, month=month, day=day, hour=hour, minute=minute, second=second))))
 
         return replaced
 

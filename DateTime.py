@@ -162,11 +162,14 @@ class osos_datetime(built_in_datetime):
         year = current_date.year if year is None else int(year)
         month = current_date.month if month is None else int(month)
         day = current_date.day if day is None else int(day)
-        # TODO : this doesn't take hour, minute, second yet        
-        replaced = current_date.replace(year=year, month=month, day=day)
+        hour = current_date.hour if hour is None else int(hour)
+        minute = current_date.minute if minute is None else int(minute)
+        second = current_date.second if second is None else int(second)
+
+        replaced = current_date.replace(year=year, month=month, day=day, hour=hour, minute=minute, second=second)
 
         print ("datetime implementation of rebuild() : " + str(replaced) )
-        print ("mx.DateTime implementation of rebuild() : " + str(mx.DateTime.now().rebuild(year=year, month=month, day=day) ))
+        print ("mx.DateTime implementation of rebuild() : " + str(mx.DateTime.now().rebuild(year=year, month=month, day=day, hour=hour, minute=minute, second=second)))
 
         return replaced
 
@@ -260,8 +263,7 @@ def now():
     datetimeNow = osos_datetime.strptime(datetimeNow, '%Y-%m-%d %H:%M:%S.%f')
     
     print("datetime implementation of now() : " + str(datetimeNow))
-    print ( "mx.DateTime implementation of now() : " + str(mx.DateTime.now())
-    
+    print ( "mx.DateTime implementation of now() : " + str(mx.DateTime.now()))
     return dtobj
 
 
