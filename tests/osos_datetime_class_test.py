@@ -48,7 +48,7 @@ class CustomDateTime(built_in_datetime):
         replaced = current_date.replace(year=year, month=month, day=day, hour=hour, minute=minute, second=second)
 
         print ("datetime implementation of rebuild() : " + str(replaced) )
-        print ("mx.DateTime implementation of rebuild() : " + str(mx.DateTime.now().rebuild(year=year, month=month, day=day, hour=hour, minute=minute, second=second))))
+        print ("mx.DateTime implementation of rebuild() : " + str(mx.DateTime.now().rebuild(year=year, month=month, day=day, hour=hour, minute=minute, second=second)))
 
         return replaced
 
