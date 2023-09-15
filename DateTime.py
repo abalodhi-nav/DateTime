@@ -575,8 +575,11 @@ def DateTimeFromString(date_string):
     
     from mx.DateTime.Parser import DateTimeFromString
     mxDTfromStr = DateTimeFromString(date_string)
-    dtFromStr = osos_datetime.strptime(date_string, '%Y-%m-%d %H:%M:%S.%f')
-    #TODO make this take other string formats as well
+    
+    # NOTE : If the length is less than 11, it mean the the format is '09/15/2023'
+    #       else take the format of DateTime.now()
+    date_string = date_string.strip()
+    dtFromStr = osos_datetime.strptime(date_string ,'%m/%d/%Y') if len(date_string) < 11 else  osos_datetime.strptime(date_string, '%Y-%m-%d %H:%M:%S.%f')
 
     print ("datetime implementation of DateTimeFromString() : " + str(dtFromStr))
     print ("mx.DateTime implementation of DateTimeFromString() : " + str(mxDTfromStr))
