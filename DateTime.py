@@ -8,6 +8,7 @@ from datetime import date
 import mx.DateTime
 from dateutil.relativedelta import relativedelta
 import calendar
+from datetime import timedelta
 #import time
 #import copy
 
@@ -51,6 +52,28 @@ class osos_datetime(built_in_datetime):
     ##############################
     # operator overloading funcs #    
     ##############################
+
+    def __sub__(self, other):
+        if type(other) in [int,float]:
+            try:
+                return built_in_datetime.__sub__(self,timedelta(days=other))
+            except Exception, e:
+                print (str(e))
+                raise e
+            else:
+                print("METHOD: osos_datetime subtraction operator for integers\n")
+        return built_in_datetime.__sub__(self,other)
+
+    def __add__(self, other):
+        if type(other) in [int,float]:
+            try:
+                return built_in_datetime.__add__(self,timedelta(days=other))
+            except Exception, e:
+                print("FAILED: " +str(e))
+                raise e
+            else:
+                print("METHOD: osos_datetime addition operator for integers\n")
+        return built_in_datetime.__add__(self,other)
 
     def __lt__(self, arg):
         '''
@@ -414,7 +437,7 @@ def localtime(local_datetime=osos_datetime.now()):
         print("mx.DateTime implementation of localtime() :  " + str(mx.DateTime.localtime(local_datetime) ))
         local_datetime = osos_datetime(1969,12, 31, 19,00,00) + relativedelta(seconds=local_datetime)
     else:
-        print("mx.DateTime implementation of localtime() :  " + str(mx.DateTime.localtime() )) #TODO put localtime here which returns datetime
+        print("mx.DateTime implementation of localtime() :  " + str(mx.DateTime.localtime() ))
 
 
     print("datetime implementation of localtime() : " + str(local_datetime) )
